@@ -1,0 +1,22 @@
+.contentwrap {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  padding: 0px 5px 0px 0px;
+  
+}
+
+.content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  padding: 0px 5px 0px 0px;
+  
+}
+
+
+
