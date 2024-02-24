@@ -5,7 +5,6 @@
   flex-direction: column;
   max-width: 600px;
   padding: 0px 5px 0px 0px;
-  
 }
 
 .content {
@@ -15,8 +14,15 @@
   flex-direction: column;
   max-width: 600px;
   padding: 0px 5px 0px 0px;
-  
 }
 
+.flexcentered {
+  display: flex;
+  align-items: center;
+}
 
-
+.flex_bottomright {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}

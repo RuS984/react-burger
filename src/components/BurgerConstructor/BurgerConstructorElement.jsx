@@ -1,24 +1,30 @@
-﻿import React from 'react';
-import { ConstructorElement,  DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+﻿import React from "react";
+import {
+  ConstructorElement,
+  DragIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
-class BurgerConstructorElement extends React.Component {
-    
-    render() {
-        return (
-            <div style={{"display": "flex"}} className="p-4 ">
-                <span style={{"display": "flex", "align-items": "center"}}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type={this.props.type}
-                        isLocked={this.props.isLocked}
-                        text={this.props.text}
-                        price={this.props.price}
-                        thumbnail={this.props.thumbnail}
-                    />
-                </span>
-            </div>
-        );
-    }
-}
+const BurgerConstructorElement = ({
+  type,
+  isLocked,
+  text,
+  price,
+  thumbnail,
+  key,
+}) => (
+  <div style={{ display: "flex" }} className="p-4 ">
+    <span className="flexcentered">
+      <DragIcon type="primary" />
+      <ConstructorElement
+        type={type}
+        isLocked={isLocked}
+        text={text}
+        price={price}
+        thumbnail={thumbnail}
+        key={key}
+      />
+    </span>
+  </div>
+);
 
-export default BurgerConstructorElement
+export default BurgerConstructorElement;

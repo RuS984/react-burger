@@ -1,0 +1,25 @@
+.ingredientDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ingredientName {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.ingredientParams {
+  display: flex;
+  flex-direction: row nowrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.ingredientNutrient {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,17 +1,16 @@
 .AppHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 88px;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88px;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,4 +1,4 @@
-.MainContainer{
+.MainContainer {
   max-width: 1280px;
   height: 100%;
   margin: auto;
@@ -14,4 +14,3 @@ main {
   justify-content: space-between;
   flex-grow: 1;
 }
-
