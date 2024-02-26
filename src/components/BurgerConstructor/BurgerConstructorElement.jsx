@@ -10,18 +10,18 @@ const BurgerConstructorElement = ({
   text,
   price,
   thumbnail,
-  key,
 }) => (
-  <div style={{ display: "flex" }} className="p-4 ">
+  <div className="pt-4 pb-4">
     <span className="flexcentered">
-      <DragIcon type="primary" />
+      <div className="mr-6">
+        <DragIcon type="primary" />
+      </div>
       <ConstructorElement
         type={type}
         isLocked={isLocked}
         text={text}
         price={price}
         thumbnail={thumbnail}
-        key={key}
       />
     </span>
   </div>

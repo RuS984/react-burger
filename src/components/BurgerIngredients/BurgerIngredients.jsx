@@ -1,5 +1,6 @@
 ﻿import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../Modal/Modal";
 
 import BurgerIngredient from "./BurgerIngredient";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
@@ -19,18 +20,36 @@ function BurgerIngredients({ burgerIngredients }) {
   const sauceRef = React.useRef(null);
   const mainRef = React.useRef(null);
 
-  const filteredIngredientBun =
-    burgerIngredients !== undefined
-      ? burgerIngredients.filter((item) => item.type === "bun")
-      : [];
-  const filteredIngredientSauce =
-    burgerIngredients !== undefined
-      ? burgerIngredients.filter((item) => item.type === "sauce")
-      : [];
-  const filteredIngredientMain =
-    burgerIngredients !== undefined
-      ? burgerIngredients.filter((item) => item.type === "main")
-      : [];
+  // const filteredIngredientBun =
+  //   burgerIngredients.lenglth > 0
+  //     ? burgerIngredients.filter((item) => item.type === "bun")
+  //     : [];
+  // const filteredIngredientSauce =
+  //   burgerIngredients.lenglth > 0
+  //     ? burgerIngredients.filter((item) => item.type === "sauce")
+  //     : [];
+  // const filteredIngredientMain =
+  //   burgerIngredients.lenglth > 0
+  //     ? burgerIngredients.filter((item) => item.type === "main")
+  //     : [];
+
+  const {
+    filteredIngredientBun,
+    filteredIngredientSauce,
+    filteredIngredientMain,
+  } = React.useMemo(() => {
+    return {
+      filteredIngredientBun: burgerIngredients.filter(
+        (item) => item.type === "bun",
+      ),
+      filteredIngredientSauce: burgerIngredients.filter(
+        (item) => item.type === "sauce",
+      ),
+      filteredIngredientMain: burgerIngredients.filter(
+        (item) => item.type === "main",
+      ),
+    };
+  }, [burgerIngredients]);
 
   const handleOpenModal = (ingredient) => {
     setItem(ingredient);
@@ -46,10 +65,7 @@ function BurgerIngredients({ burgerIngredients }) {
   };
 
   return (
-    <section
-      className="mr-10"
-      style={{ display: "flex", flexDirection: "column" }}
-    >
+    <section className="mr-10 flexcolumn">
       <div className="ingredienttabs">
         <Tab
           value="bunRef"
@@ -73,14 +89,9 @@ function BurgerIngredients({ burgerIngredients }) {
           Начинки
         </Tab>
       </div>
-      <div className="contentwrap mt-10 mb-10 ml-4">
+      <div className="contentwrapbi mt-10 mb-10 ml-4">
         <div className="ingredientwrap">
-          <p
-            className="text text_type_main-medium mb-6"
-            style={{ width: "100%" }}
-          >
-            Булки
-          </p>
+          <p className="text text_type_main-medium mb-6 fullwidth">Булки</p>
           {filteredIngredientBun.map((data, index) => (
             <BurgerIngredient
               key={index}
@@ -88,12 +99,7 @@ function BurgerIngredients({ burgerIngredients }) {
               handleClick={() => handleOpenModal(data)}
             />
           ))}
-          <p
-            className="text text_type_main-medium mb-6"
-            style={{ width: "100%" }}
-          >
-            Соусы
-          </p>
+          <p className="text text_type_main-medium mb-6 fullwidth">Соусы</p>
           {filteredIngredientSauce.map((data, index) => (
             <BurgerIngredient
               key={index}
@@ -101,12 +107,7 @@ function BurgerIngredients({ burgerIngredients }) {
               handleClick={() => handleOpenModal(data)}
             />
           ))}
-          <p
-            className="text text_type_main-medium mb-6"
-            style={{ width: "100%" }}
-          >
-            Начинки
-          </p>
+          <p className="text text_type_main-medium mb-6 fullwidth">Начинки</p>
           {filteredIngredientMain.map((data, index) => (
             <BurgerIngredient
               key={index}
@@ -117,10 +118,9 @@ function BurgerIngredients({ burgerIngredients }) {
         </div>
       </div>
       {isOpen && (
-        <IngredientDetails
-          ingredient={item}
-          handleClickClose={handleCloseModal}
-        />
+        <Modal title={"Детали ингредиента"} handleClickClose={handleCloseModal}>
+          <IngredientDetails ingredient={item} />
+        </Modal>
       )}
     </section>
   );

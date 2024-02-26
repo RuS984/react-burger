@@ -5,6 +5,7 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import {
   Button,
   CurrencyIcon,
+  ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import "./BurgerConstructor.css";
@@ -25,52 +26,49 @@ function BurgerConstructor({ selectedIngredients }) {
     setIsOpen(true);
   };
 
-  const orderSum =
-    selectedIngredients !== undefined
-      ? selectedIngredients.reduce(function (sum, current) {
-          return sum + current.price;
-        }, 0)
-      : 0;
-
-  const topBun =
-    selectedIngredients !== undefined ? selectedIngredients[0] : null;
-  const bottomBun =
-    selectedIngredients !== undefined
-      ? selectedIngredients[selectedIngredients.lenglth - 1]
-      : null;
-  const middleIngredients =
-    selectedIngredients !== undefined ? selectedIngredients.slice(1, -1) : [];
+  const { bun, ingredients, orderSum } = React.useMemo(() => {
+    return {
+      bun: selectedIngredients.find((item) => item.type === "bun"),
+      ingredients: selectedIngredients.filter((item) => item.type !== "bun"),
+      orderSum: selectedIngredients.reduce(function (sum, current) {
+        return sum + current.price;
+      }, 0)
+    };
+  }, [selectedIngredients]);
 
   return (
-    <div style={{ display: "flex", "flex-direction": "column" }}>
-      <div className="pt-25 " />
-      <BurgerConstructorElement
-        type="top"
-        isLocked={true}
-        text={topBun.name}
-        price={topBun.price}
-        thumbnail={topBun.image_mobile}
-      />
-      <div className="modifedscroll contentwrap">
-        {!!selectedIngredients.length &&
-          selectedIngredients.map((selectedIngredient, index) => (
+    <div className="flexcolumn pt-25">
+      <div className="ml-8 pl-6">
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={bun.name}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+        />
+      </div>
+      <div className="modifedscroll contentwrapbc">
+        {!!ingredients.length &&
+          ingredients.map((ingredients, index) => (
             <BurgerConstructorElement
               type={undefined}
               isLocked={false}
-              text={selectedIngredient.name}
-              price={selectedIngredient.price}
-              thumbnail={selectedIngredient.image_mobile}
-              key={"" + index + selectedIngredient._id}
+              text={ingredients.name}
+              price={ingredients.price}
+              thumbnail={ingredients.image_mobile}
+              key={"" + index + ingredients._id}
             />
           ))}
       </div>
-      <BurgerConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={topBun.name}
-        price={topBun.price}
-        thumbnail={topBun.image_mobile}
-      />
+      <div className="ml-8 pl-6">
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={bun.name}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+        />
+      </div>
       <div className="flex_bottomright">
         <span className="flexcentered mt-10">
           <span className="pr-10 flexcentered text text_type_digits-default">
@@ -88,12 +86,8 @@ function BurgerConstructor({ selectedIngredients }) {
         </span>
       </div>
       {isOpen && (
-        <Modal
-          isOpenModal={handleOpenModal}
-          handleClickClose={handleCloseModal}
-        >
-          {" "}
-          <OrderDetails />{" "}
+        <Modal handleClickClose={handleCloseModal}>
+          <OrderDetails />
         </Modal>
       )}
     </div>

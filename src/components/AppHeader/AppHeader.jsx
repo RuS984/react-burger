@@ -12,24 +12,24 @@ class AppHeader extends React.Component {
   render() {
     return (
       <nav className="AppHeader">
-        <content className="flex">
-          <span className="btn p-5 mr-2">
+        <span className="flex">
+          <a href="#" className="btn p-5 mr-2 activebtn">
             <BurgerIcon type="primary" />
-            <span className="ml-1 text_type_main-default"> Конструктор</span>
-          </span>
-          <span className="btn p-5">
+            <p className="ml-1 text_type_main-default"> Конструктор</p>
+          </a>
+          <a href="#" className="btn p-5 linkbtn">
             <ListIcon type="secondary" />
-            <span className="ml-1 text_type_main-default">Лента заказов</span>
-          </span>
-        </content>
+            <p className="ml-1 text_type_main-default">Лента заказов</p>
+          </a>
+        </span>
         <span className="flex">
           <Logo />
         </span>
         <span className="flex">
-          <span className="btn p-5">
+          <a href="#" className="btn p-5 linkbtn">
             <ProfileIcon type="secondary" />
-            <span className="ml-1 text_type_main-default"> Личный кабинет</span>
-          </span>
+            <p className="ml-1 text_type_main-default"> Личный кабинет</p>
+          </a>
         </span>
       </nav>
     );

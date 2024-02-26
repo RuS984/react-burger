@@ -16,14 +16,13 @@ const BurgerIngredient = ({ ingredient, ingredientQty = 0, handleClick }) => (
       <span className="pr-3 ">{ingredient.price}</span>
       <CurrencyIcon type="primary" />
     </span>
-    <span style={{ textAlign: "center" }}>{ingredient.name}</span>
+    <span className="textcenterd">{ingredient.name}</span>
   </div>
 );
 
 export default BurgerIngredient;
 
 BurgerIngredient.propTypes = {
-  ingredient: PropTypes.arrayOf(propTypesburgerIngredients.isRequired)
-    .isRequired,
-  ingredientQty: PropTypes.number.isRequired,
+  ingredient: propTypesburgerIngredients.isRequired,
+  ingredientQty: PropTypes.number,
 };

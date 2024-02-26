@@ -116,15 +116,20 @@ function App() {
       },
     ],
   });
+
+  const getIngredients = async () => {
+    let response = await fetch(
+      "https://norma.nomoreparties.space/api/ingredients",
+    );
+    if (response.ok) {
+      let json = await response.json();
+      setState({ ...state, ingredients: json.data, isLoading: false });
+    } else {
+      throw new Error(`Get ingredients request Error: ${response.status}`);
+    }
+  };
+
   React.useEffect(() => {
-    const getIngredients = async () => {
-      setState({ ...state, isLoading: true });
-      const res = await fetch(
-        "https://norma.nomoreparties.space/api/ingredients",
-      );
-      const data = await res.json();
-      setState({ ...state, ingredients: data, isLoading: false });
-    };
     getIngredients();
   }, []);
 
@@ -132,7 +137,9 @@ function App() {
     <div className="App MainContainer">
       <AppHeader />
       <main>
-        <BurgerIngredients burgerIngredients={state.ingredients.data} />
+        {!state.hasError && state.ingredients.length > 0 && (
+          <BurgerIngredients burgerIngredients={state.ingredients} />
+        )}
         <BurgerConstructor selectedIngredients={state.selectedIngredients} />
       </main>
     </div>

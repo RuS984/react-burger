@@ -14,3 +14,14 @@
   align-items: center;
   justify-content: center;
 }
+
+.activebtn {
+  color: #f2f2f3;
+  text-decoration: none;
+}
+
+.linkbtn {
+  display: flex;
+  color: #8585ad;
+  text-decoration: none;
+}

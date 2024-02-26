@@ -24,7 +24,7 @@ const Modal = ({ title, children, handleClickClose }) => {
 
   return ReactDOM.createPortal(
     <div>
-      <ModalOverlay handleCloseClick={() => handleClickClose} />
+      <ModalOverlay handleCloseClick={handleClickClose} />
       <div className="modal pt-10 pr-10 pb-15 pl-10">
         <div className="wrapper m-10">
           <p className="title text text_type_main-large">{title}</p>
