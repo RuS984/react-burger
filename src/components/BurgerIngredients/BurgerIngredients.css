@@ -1,0 +1,59 @@
+.ingredienttabs {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.contentwrapbi {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+  padding: 0px 5px 0px 0px;
+}
+.ingredientCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  position: relative;
+}
+
+.ingredientwrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.price {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  width: auto;
+}
+
+.textcenterd {
+  text-align: center;
+}
+
+.flexcolumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+.contentwrapbi::-webkit-scrollbar {
+  width: 8px;
+}
+
+.contentwrapbi::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+}
+
+.contentwrapbi::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  background-clip: content-box;
+  background-color: #8585ad;
+}

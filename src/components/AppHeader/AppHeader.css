@@ -1,0 +1,27 @@
+.AppHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88px;
+}
+
+.flex {
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activebtn {
+  color: #f2f2f3;
+  text-decoration: none;
+}
+
+.linkbtn {
+  display: flex;
+  color: #8585ad;
+  text-decoration: none;
+}

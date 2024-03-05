@@ -1,0 +1,39 @@
+.modal {
+  position: absolute;
+  place-items: center;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
+  background-color: #1c1c21;
+  border: 1px solid;
+  border-radius: 40px;
+  z-index: 1000;
+}
+
+.closeButton {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  margin-left: auto;
+  padding: 0;
+  right: 0;
+  margin-right: 45px;
+  position: absolute;
+}
+
+.modalContainer {
+  overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.title {
+  flex-grow: 1;
+}
