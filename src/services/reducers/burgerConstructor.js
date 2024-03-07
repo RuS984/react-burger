@@ -1,35 +1,14 @@
-import React from "react";
-import "./App.css";
-import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import { v4 as uuidv4 } from 'uuid';
 
-import { getIngredients } from "../../services/actions/ingredients";
-
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { v4 as uuidv4 } from "uuid";
-
-function App() {
-  const [state, setState] = React.useState({
-    selectedIngredients: [
-      {
-        _id: "643d69a5c3f7b9001cfa093c",
-        name: "Краторная булка N-200i",
-        type: "bun",
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: "https://code.s3.yandex.net/react/code/bun-02.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-        __v: 0,
-      },
+import {
+    DRAG_INGREDIENT_IN_CONSTRUCTOR,
+    DELETE_INGREDIENT_FROM_CONSTRUCTOR,
+    DRAG_BUN_IN_CONSTRUCTOR,
+    SORT_INGREDIENT_IN_CONSTRUCTOR,
+  } from "../actions/burgerConstructor";
+  
+  const initialState = {        
+    ingredientsWithoutBuns: [
       {
         _id: "643d69a5c3f7b9001cfa0944",
         name: "Соус традиционный галактический",
@@ -44,6 +23,7 @@ function App() {
           "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
         image_large: "https://code.s3.yandex.net/react/code/sauce-03-large.png",
         __v: 0,
+        id:uuidv4(),
       },
       {
         _id: "643d69a5c3f7b9001cfa093f",
@@ -59,6 +39,7 @@ function App() {
           "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
         image_large: "https://code.s3.yandex.net/react/code/meat-02-large.png",
         __v: 0,
+        id:uuidv4(),
       },
       {
         _id: "643d69a5c3f7b9001cfa0947",
@@ -73,6 +54,7 @@ function App() {
         image_mobile: "https://code.s3.yandex.net/react/code/sp_1-mobile.png",
         image_large: "https://code.s3.yandex.net/react/code/sp_1-large.png",
         __v: 0,
+        id:uuidv4(),
       },
       {
         _id: "643d69a5c3f7b9001cfa0946",
@@ -89,6 +71,7 @@ function App() {
         image_large:
           "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
         __v: 0,
+        id:uuidv4(),
       },
       {
         _id: "643d69a5c3f7b9001cfa0946",
@@ -105,45 +88,44 @@ function App() {
         image_large:
           "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
         __v: 0,
+        id:uuidv4(),
       },
-      {
-        _id: "643d69a5c3f7b9001cfa093c",
-        name: "Краторная булка N-200i",
-        type: "bun",
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: "https://code.s3.yandex.net/react/code/bun-02.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-        __v: 0,
-      },
+
     ],
-  });
+    buns: {
+      _id: "643d69a5c3f7b9001cfa093c",
+      name: "Краторная булка N-200i",
+      type: "bun",
+      proteins: 80,
+      fat: 24,
+      carbohydrates: 53,
+      calories: 420,
+      price: 1255,
+      image: "https://code.s3.yandex.net/react/code/bun-02.png",
+      image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+      image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+      __v: 0,
+      id:uuidv4(),
+    },       
+  };
 
-  const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.ingredients.data);
-  const hasError = useSelector((store) => store.ingredients.hasError);
+  export const constructorIngredientsReducer = (state = initialState, action) => {
+    switch (action.type) {
+      case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
+        return {
+          ...state,
+          ingredientsWithoutBuns: state.ingredientsWithoutBuns.filter((item, index) => state.ingredientsWithoutBuns.indexOf(action.payload) !== index)
+        };
+      case DRAG_BUN_IN_CONSTRUCTOR:{
+        let buns =  {...action.payload.ingredient , id: action.payload.itemId,}
+        return { ...state, isLoading: false, buns: buns }
+      };
+      case DRAG_INGREDIENT_IN_CONSTRUCTOR:{
+        let ingredient =  {...action.payload.ingredient, id: action.payload.itemId,}
+        return { ...state, isLoading: false, ingredientsWithoutBuns: [...state.ingredientsWithoutBuns, ingredient]} 
+      };
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, []);
-
-  return (
-    <div className="App MainContainer">
-      <AppHeader />
-      <DndProvider backend={HTML5Backend}>
-        <main>
-          {!hasError && ingredients.length > 0 && (
-            <BurgerIngredients burgerIngredients={ingredients} />
-          )}
-          <BurgerConstructor selectedIngredients={state.selectedIngredients} />
-        </main>
-      </DndProvider>
-    </div>
-  );
-}
-
-export default App;
+      default:
+        return state;
+    }
+  };

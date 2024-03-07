@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import BurgerConstructorElement from "./BurgerConstructorElement";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { useDrag, useDrop } from "react-dnd";
 
 import {
   Button,
@@ -15,8 +16,25 @@ import PropTypes from "prop-types";
 import propTypesburgerIngredients from "../BurgerIngredients/BurgerIngredientsPropType";
 import Modal from "../Modal/Modal";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  deleteIngredient,
+  dragBun,
+  dragIngredient,
+} from "../../services/actions/burgerConstructor";
+
+
+
 function BurgerConstructor({ selectedIngredients }) {
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const dispatch = useDispatch();
+  const { ingredientsWithoutBuns, buns } = useSelector(
+    (store) => store.constructorIngredients,
+  );
+
+  const ref = React.useRef(null);
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -26,37 +44,68 @@ function BurgerConstructor({ selectedIngredients }) {
     setIsOpen(true);
   };
 
-  const { bun, ingredients, orderSum } = React.useMemo(() => {
+  const { orderSum } = React.useMemo(() => {
     return {
-      bun: selectedIngredients.find((item) => item.type === "bun"),
-      ingredients: selectedIngredients.filter((item) => item.type !== "bun"),
-      orderSum: selectedIngredients.reduce(function (sum, current) {
-        return sum + current.price;
-      }, 0)
+      orderSum:
+        ingredientsWithoutBuns.reduce(function (sum, current) {
+          return sum + current.price;
+        }, 0) +
+        buns.price * 2,
     };
-  }, [selectedIngredients]);
+  }, [ingredientsWithoutBuns, buns]);
+
+  const [, dropIngredient] = useDrop({
+    accept: "ingredients",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      console.log("dropIngredient drop");
+      let ingredient = item.item;
+      ingredient.type === "bun"
+        ? dispatch(dragBun(ingredient))
+        : dispatch(dragIngredient(ingredient));
+    },
+  });
+
+  const [, dropSort] = useDrop({
+    accept: "sortIngredients",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      console.log("sortIngredients drop");
+      // let ingredient = item.item;
+      // ingredient.type === "bun"
+      //   ? dispatch(dragBun(ingredient))
+      //   : dispatch(dragIngredient(ingredient));
+    },
+  });
+
+  const dragDropRef = dropIngredient(dropSort(ref));
 
   return (
-    <div className="flexcolumn pt-25">
+    <div className="flexcolumn pt-25" ref={ dragDropRef}>
       <div className="ml-8 pl-6">
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image_mobile}
+          text={buns.name}
+          price={buns.price}
+          thumbnail={buns.image_mobile}
         />
       </div>
       <div className="modifedscroll contentwrapbc">
-        {!!ingredients.length &&
-          ingredients.map((ingredients, index) => (
+        {!!ingredientsWithoutBuns.length &&
+          ingredientsWithoutBuns.map((ingredient, index) => (
             <BurgerConstructorElement
               type={undefined}
               isLocked={false}
-              text={ingredients.name}
-              price={ingredients.price}
-              thumbnail={ingredients.image_mobile}
-              key={"" + index + ingredients._id}
+              text={ingredient.name}
+              price={ingredient.price}
+              thumbnail={ingredient.image_mobile}
+              key={"" + index + ingredient._id}
+              handleClose={() => dispatch(deleteIngredient(ingredient))}
             />
           ))}
       </div>
@@ -64,9 +113,9 @@ function BurgerConstructor({ selectedIngredients }) {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image_mobile}
+          text={buns.name}
+          price={buns.price}
+          thumbnail={buns.image_mobile}
         />
       </div>
       <div className="flex_bottomright">

@@ -19,19 +19,26 @@ function BurgerIngredients({ burgerIngredients }) {
   const bunRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const mainRef = React.useRef(null);
+  const ref = React.useRef(null);
 
-  // const filteredIngredientBun =
-  //   burgerIngredients.lenglth > 0
-  //     ? burgerIngredients.filter((item) => item.type === "bun")
-  //     : [];
-  // const filteredIngredientSauce =
-  //   burgerIngredients.lenglth > 0
-  //     ? burgerIngredients.filter((item) => item.type === "sauce")
-  //     : [];
-  // const filteredIngredientMain =
-  //   burgerIngredients.lenglth > 0
-  //     ? burgerIngredients.filter((item) => item.type === "main")
-  //     : [];
+  const scrollHandle = (e) => {
+    let scrollTop = e.currentTarget.scrollTop;
+    if (
+      scrollTop > bunRef.current?.getBoundingClientRect().bottom &&
+      scrollTop < sauceRef.current?.getBoundingClientRect().bottom
+    ) {
+      setCurrent("bunRef");
+    }
+    if (
+      scrollTop > sauceRef.current?.getBoundingClientRect().bottom &&
+      scrollTop < mainRef.current?.getBoundingClientRect().bottom
+    ) {
+      setCurrent("sauceRef");
+    }
+    if (scrollTop > mainRef.current?.getBoundingClientRect().bottom) {
+      setCurrent("mainRef");
+    }
+  };
 
   const {
     filteredIngredientBun,
@@ -66,7 +73,7 @@ function BurgerIngredients({ burgerIngredients }) {
 
   return (
     <section className="mr-10 flexcolumn">
-      <div className="ingredienttabs">
+      <div className="ingredienttabs" onScroll={scrollHandle}>
         <Tab
           value="bunRef"
           active={current === "bunRef"}
