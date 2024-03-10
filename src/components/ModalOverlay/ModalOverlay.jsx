@@ -1,10 +1,18 @@
+// #region Import Modules
 import PropTypes from "prop-types";
 
-import "./ModalOverlay.css";
+// #endregion
+// #region Styles
+import style from "./ModalOverlay.module.css";
+
+// #endregion
 
 const ModalOverlay = ({ handleCloseClick }) => {
   return (
-    <div className="modaloverlay" onClick={() => handleCloseClick()}></div>
+    <div
+      className={`${style.modaloverlay}`}
+      onClick={() => handleCloseClick()}
+    ></div>
   );
 };
 

@@ -1,46 +1,71 @@
-﻿import React, { useRef } from "react";
-import {
-  CurrencyIcon,
-  Counter,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+﻿// #region Import Modules
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
+import {
+  Counter,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+// #endregion
 
-import { useDrag, useDrop } from "react-dnd";
+// #region Styles
+import style from "./BurgerIngredients.module.css";
+// #endregion
 
+// #region Import App components
 import propTypesburgerIngredients from "./BurgerIngredientsPropType";
-import "./BurgerIngredients.css";
+// #endregion
 
-function BurgerIngredient({ ingredient, ingredientQty = 0, handleClick }) {
+function BurgerIngredient({ ingredient, handleClick }) {
+  // #region Redux logic
+  const { ingredientsWithoutBuns, buns } = useSelector(
+    (store) => store.constructorIngredients,
+  );
+  // #endregion
   const ref = useRef(null);
+  // #region React DnD
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredients",
     item: () => {
-      console.log("ingredients drag");
       return { item: ingredient };
     },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),
   });
+  // #endregion
+
+  const { ingredientQty } = React.useMemo(() => {
+    return {
+      ingredientQty:
+        ingredient.type === "bun"
+          ? buns._id === ingredient._id
+            ? 1
+            : 0
+          : ingredientsWithoutBuns.filter((item) => item._id === ingredient._id)
+              .length,
+    };
+  }, [ingredientsWithoutBuns, buns]);
 
   return (
     <div
       className={
         isDrag
-          ? "ingredientCard mr-6 mb-8 dragging"
-          : "ingredientCard mr-6 mb-8"
+          ? `${style.ingredientCard} mr-6 mb-8 ${style.dragging}`
+          : `${style.ingredientCard} mr-6 mb-8`
       }
       onClick={handleClick}
       ref={dragRef}
     >
       {ingredientQty > 0 && <Counter size="small" count={ingredientQty} />}
       <img src={ingredient.image} alt={ingredient.name} />
-      <span className="price m-1 text text_type_digits-default">
+      <span className={`${style.price} m-1 text text_type_digits-default`}>
         <span className="pr-3 ">{ingredient.price}</span>
         <CurrencyIcon type="primary" />
       </span>
-      <span className="textcenterd">{ingredient.name}</span>
+      <span className={`${style.textcenterd}`}>{ingredient.name}</span>
     </div>
   );
 }

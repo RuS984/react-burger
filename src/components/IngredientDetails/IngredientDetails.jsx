@@ -1,20 +1,24 @@
+// #region Import App components
 import propTypesburgerIngredients from "../BurgerIngredients/BurgerIngredientsPropType";
+// #endregion
+// #region Styles
+import style from "./IngredientDetails.module.css";
 
-import "./IngredientDetails.css";
+// #endregion
 
 const IngredientDetails = ({ ingredient }) => {
   return (
-    <div className="ingredientDetails">
+    <div className={`${style.ingredientDetails}`}>
       <img
         src={ingredient.image_large}
         alt={ingredient.name}
         className="ingredientImage pl-5 pr-5 pb-4"
       />
-      <h2 className="ingredientName text text_type_main-medium pb-8">
+      <h2 className={`${style.ingredientName} text text_type_main-medium pb-8`}>
         {ingredient.name}
       </h2>
-      <div className="ingredientParams">
-        <div className="ingredientNutrient">
+      <div className={`${style.ingredientParams}`}>
+        <div className={`${style.ingredientNutrient}`}>
           <p className={"text text_type_main-default text_color_inactive pb-5"}>
             Калории,ккал
           </p>
@@ -22,7 +26,7 @@ const IngredientDetails = ({ ingredient }) => {
             {ingredient.calories}
           </p>
         </div>
-        <div className="ingredientNutrient">
+        <div className={`${style.ingredientNutrient}`}>
           <p className={"text text_type_main-default text_color_inactive pb-5"}>
             Белки, г
           </p>
@@ -30,7 +34,7 @@ const IngredientDetails = ({ ingredient }) => {
             {ingredient.proteins}
           </p>
         </div>
-        <div className="ingredientNutrient">
+        <div className={`${style.ingredientNutrient}`}>
           <p className={"text text_type_main-default text_color_inactive pb-5"}>
             Жиры, г
           </p>

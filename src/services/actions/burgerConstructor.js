@@ -8,15 +8,20 @@ export const SORT_INGREDIENT_IN_CONSTRUCTOR = "SORT_INGREDIENT_IN_CONSTRUCTOR";
 export const dragIngredient = (ingredient) => ({
     type: DRAG_INGREDIENT_IN_CONSTRUCTOR,
     payload: {ingredient,
-    itemId: uuidv4()
+              itemId: uuidv4()
   }
   });
 
   export const dragBun = (ingredient) => ({
     type: DRAG_BUN_IN_CONSTRUCTOR,
     payload: {ingredient,
-    itemId: uuidv4()
+              itemId: uuidv4()
     }
+  });
+
+  export const dragSortIngredient = (ingredients) => ({
+    type: SORT_INGREDIENT_IN_CONSTRUCTOR,
+    payload: ingredients
   });
 
   export const deleteIngredient = (ingredient) => ({

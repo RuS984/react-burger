@@ -1,9 +1,27 @@
-﻿import React, { useRef } from "react";
+﻿// #region Import Modules
+import React, { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrag, useDrop } from "react-dnd";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDrag, useDrop } from "react-dnd";
+import { arrayMoveImmutable } from "array-move";
+// #endregion
+
+// #region Import Redux elements
+import {
+  deleteIngredient,
+  dragBun,
+  dragIngredient,
+  dragSortIngredient,
+} from "../../services/actions/burgerConstructor";
+import { submitOrder } from "../../services/actions/order";
+// #endregion
+
+// #region Styles
+import style from "./BurgerConstructor.module.css";
+// #endregion
 
 function BurgerConstructorElement({
   type,
@@ -12,39 +30,68 @@ function BurgerConstructorElement({
   price,
   thumbnail,
   handleClose,
+  ingredient,
+  idx,
 }) {
+  // #region Redux logic
+  const dispatch = useDispatch();
+  const { ingredientsWithoutBuns, buns } = useSelector(
+    (store) => store.constructorIngredients,
+  );
+  // #endregion
+  const [hoverItem, sethoverItem] = React.useState(-1);
   const ref = useRef(null);
 
-  const [{ isSortDrag }, dragSortRef] = useDrag({
-    type: "sortIngredients",
+  // #region React DnD вкфп
+  const [{ isDrag }, dragSortRef] = useDrag({
+    type: "ingredients",
     item: () => {
-      console.log("sortIngredients drag");
-      // return { item: ingredient };
+      return { item: ingredient, index: ingredient.idx };
     },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),
   });
+  // #endregion
 
-  // const [, dropSort] = useDrop({
-  //   accept: "sortIngredients",
-  //   collect: (monitor) => ({
-  //     isHover: monitor.isOver(),
-  //   }),
-  //   drop(item) {
-  //     console.log("sortIngredients drop");
-  //     // let ingredient = item.item;
-  //     // ingredient.type === "bun"
-  //     //   ? dispatch(dragBun(ingredient))
-  //     //   : dispatch(dragIngredient(ingredient));
-  //   },
-  // });
+  // #region React DnD сортировка
+  const [{ isHover, hoveredItem }, dropIngredient] = useDrop({
+    accept: "ingredients",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+      hoveredItem: monitor.getItem(),
+    }),
+    drop(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
 
-  // const dragDropRef = dragSortRef(dropSort(ref));
+      let ingredient = item.item;
+      const dragId = ingredient.id;
+      const dragIndex = ingredientsWithoutBuns.findIndex(
+        (i) => i.id === dragId,
+      );
+
+      if (dragIndex === idx) {
+        return;
+      }
+
+      const sortedArray = arrayMoveImmutable(
+        ingredientsWithoutBuns,
+        dragIndex,
+        idx,
+      );
+
+      dispatch(dragSortIngredient(sortedArray));
+    },
+  });
+  // #endregion
+
+  const dragDropRef = dropIngredient(dragSortRef(ref));
 
   return (
-    <div className="pt-4 pb-4" ref={dragSortRef}>
-      <span className="flexcentered">
+    <div className="pt-4 pb-4" ref={dragDropRef}>
+      <span className={`${style.flexcentered}`}>
         <div className="mr-6">
           <DragIcon type="primary" />
         </div>

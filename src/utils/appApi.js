@@ -13,3 +13,20 @@ export const getIngredientsRequest = () => {
           return Promise.reject(data);
       });
 };
+
+export const submitOrderRequest = (orderData) => {
+  const body = {ingredients: orderData.map((item) => { return item._id})};
+  return fetch(`${apiUrl}/orders`,{
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+  })
+  .then(checkReponse)
+  .then((data) => {
+      console.log(data);
+      if (data?.success) return data;
+      return Promise.reject(data);
+  });
+};
