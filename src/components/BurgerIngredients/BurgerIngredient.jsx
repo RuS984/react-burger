@@ -1,5 +1,5 @@
 ﻿// #region Import Modules
-import React, { useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
@@ -23,9 +23,8 @@ function BurgerIngredient({ ingredient, handleClick }) {
     (store) => store.constructorIngredients,
   );
   // #endregion
-  const ref = useRef(null);
-  // #region React DnD
 
+  // #region React DnD
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredients",
     item: () => {
@@ -47,7 +46,7 @@ function BurgerIngredient({ ingredient, handleClick }) {
           : ingredientsWithoutBuns.filter((item) => item._id === ingredient._id)
               .length,
     };
-  }, [ingredientsWithoutBuns, buns]);
+  }, [ingredientsWithoutBuns, buns, ingredient]);
 
   return (
     <div

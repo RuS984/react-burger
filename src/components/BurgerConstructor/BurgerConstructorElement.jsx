@@ -11,12 +11,8 @@ import { arrayMoveImmutable } from "array-move";
 
 // #region Import Redux elements
 import {
-  deleteIngredient,
-  dragBun,
-  dragIngredient,
   dragSortIngredient,
 } from "../../services/actions/burgerConstructor";
-import { submitOrder } from "../../services/actions/order";
 // #endregion
 
 // #region Styles
@@ -35,15 +31,14 @@ function BurgerConstructorElement({
 }) {
   // #region Redux logic
   const dispatch = useDispatch();
-  const { ingredientsWithoutBuns, buns } = useSelector(
+  const { ingredientsWithoutBuns} = useSelector(
     (store) => store.constructorIngredients,
   );
   // #endregion
-  const [hoverItem, sethoverItem] = React.useState(-1);
   const ref = useRef(null);
 
-  // #region React DnD вкфп
-  const [{ isDrag }, dragSortRef] = useDrag({
+  // #region React DnD 
+  const [, dragSortRef] = useDrag({
     type: "ingredients",
     item: () => {
       return { item: ingredient, index: ingredient.idx };
@@ -55,7 +50,7 @@ function BurgerConstructorElement({
   // #endregion
 
   // #region React DnD сортировка
-  const [{ isHover, hoveredItem }, dropIngredient] = useDrop({
+  const [, dropIngredient] = useDrop({
     accept: "ingredients",
     collect: (monitor) => ({
       isHover: monitor.isOver(),

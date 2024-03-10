@@ -25,7 +25,6 @@ function BurgerIngredients({ burgerIngredients }) {
   const bunRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const mainRef = React.useRef(null);
-  const ref = React.useRef(null);
 
   const {
     filteredIngredientBun,
@@ -72,10 +71,6 @@ function BurgerIngredients({ burgerIngredients }) {
     if (scrollTop > mainRef.current?.getBoundingClientRect().bottom) {
       setCurrent("mainRef");
     }
-  };
-
-  const setActiveTab1 = (value) => {
-    setCurrent(value);
   };
 
   const setActiveTab = (tab) => {

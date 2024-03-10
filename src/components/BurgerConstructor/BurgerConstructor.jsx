@@ -41,7 +41,7 @@ function BurgerConstructor() {
   const ref = React.useRef(null);
 
   // #region React DnD
-  const [{ isHover, hoveredItem }, dropIngredient] = useDrop({
+  const [, dropIngredient] = useDrop({
     accept: "ingredients",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -80,10 +80,6 @@ function BurgerConstructor() {
   // #region Handlers
   const handleCloseModal = () => {
     setIsOpen(false);
-  };
-
-  const handleOpenModal = () => {
-    setIsOpen(true);
   };
 
   const submitOrderHandler = () => {
