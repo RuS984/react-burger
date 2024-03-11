@@ -15,7 +15,7 @@ import style from "./AppHeader.module.css";
 class AppHeader extends React.Component {
   render() {
     return (
-      <nav className={`${style.AppHeader}`}>
+      <header className={`${style.AppHeader}`}>
         <span className={`${style.flex}`}>
           <a href="#" className={`${style.btn} ${style.activebtn} p-5 mr-2 `}>
             <BurgerIcon type="primary" />
@@ -35,7 +35,7 @@ class AppHeader extends React.Component {
             <p className="ml-1 text_type_main-default"> Личный кабинет</p>
           </a>
         </span>
-      </nav>
+      </header>
     );
   }
 }

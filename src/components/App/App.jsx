@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch, useSelector } from "react-redux";
+
 // #endregion
 
 // #region Import App components
@@ -12,6 +12,7 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 // #endregion
 
 // #region Import Redux elements
+import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 // #endregion
 // #region Styles
@@ -34,9 +35,7 @@ function App() {
       <AppHeader />
       <DndProvider backend={HTML5Backend}>
         <main>
-          {!hasError && ingredients.length > 0 && (
-            <BurgerIngredients burgerIngredients={ingredients} />
-          )}
+          {!hasError && ingredients.length > 0 && <BurgerIngredients />}
           <BurgerConstructor />
         </main>
       </DndProvider>

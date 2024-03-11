@@ -1,4 +1,4 @@
-import { getIngredientsRequest } from '../../utils/appApi.js';
+import { getIngredientsRequest } from "../../utils/appApi.js";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -18,7 +18,7 @@ export const getIngredients = () => {
       )
       .catch((e) => {
         dispatch({ type: GET_INGREDIENTS_FAILED });
-        console.log(GET_INGREDIENTS_FAILED + '  error: ' + e )
+        console.log(GET_INGREDIENTS_FAILED + "  error: " + e);
       });
   };
 };

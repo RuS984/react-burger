@@ -10,9 +10,7 @@ import { arrayMoveImmutable } from "array-move";
 // #endregion
 
 // #region Import Redux elements
-import {
-  dragSortIngredient,
-} from "../../services/actions/burgerConstructor";
+import { dragSortIngredient } from "../../services/actions/burgerConstructor";
 // #endregion
 
 // #region Styles
@@ -31,13 +29,13 @@ function BurgerConstructorElement({
 }) {
   // #region Redux logic
   const dispatch = useDispatch();
-  const { ingredientsWithoutBuns} = useSelector(
+  const { ingredientsWithoutBuns } = useSelector(
     (store) => store.constructorIngredients,
   );
   // #endregion
   const ref = useRef(null);
 
-  // #region React DnD 
+  // #region React DnD
   const [, dragSortRef] = useDrag({
     type: "ingredients",
     item: () => {

@@ -1,23 +1,25 @@
 ﻿// #region Import Modules
 import React from "react";
-
 import PropTypes from "prop-types";
-
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-
 // #endregion
+
 // #region Import App components
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import BurgerIngredient from "./BurgerIngredient";
 // #endregion
+
+// #region Import Redux elements
+import { useSelector } from "react-redux";
+// #endregion
+
 // #region Styles
 import style from "./BurgerIngredients.module.css";
 import propTypesburgerIngredients from "./BurgerIngredientsPropType";
-
 // #endregion
 
-function BurgerIngredients({ burgerIngredients }) {
+function BurgerIngredients() {
   const [isOpen, setisOpen] = React.useState(false);
   const [item, setItem] = React.useState({});
 
@@ -25,6 +27,8 @@ function BurgerIngredients({ burgerIngredients }) {
   const bunRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const mainRef = React.useRef(null);
+
+  const burgerIngredients = useSelector((store) => store.ingredients.data);
 
   const {
     filteredIngredientBun,
@@ -122,7 +126,7 @@ function BurgerIngredients({ burgerIngredients }) {
           </p>
           {filteredIngredientBun.map((data, index) => (
             <BurgerIngredient
-              key={index}
+              key={data._id}
               ingredient={data}
               handleClick={() => handleOpenModal(data)}
             />
@@ -136,7 +140,7 @@ function BurgerIngredients({ burgerIngredients }) {
           </p>
           {filteredIngredientSauce.map((data, index) => (
             <BurgerIngredient
-              key={index}
+              key={data._id}
               ingredient={data}
               handleClick={() => handleOpenModal(data)}
             />
@@ -150,7 +154,7 @@ function BurgerIngredients({ burgerIngredients }) {
           </p>
           {filteredIngredientMain.map((data, index) => (
             <BurgerIngredient
-              key={index}
+              key={data._id}
               ingredient={data}
               handleClick={() => handleOpenModal(data)}
             />
@@ -166,9 +170,5 @@ function BurgerIngredients({ burgerIngredients }) {
   );
 }
 
-BurgerIngredients.propTypes = {
-  burgerIngredients: PropTypes.arrayOf(propTypesburgerIngredients.isRequired)
-    .isRequired,
-};
 
 export default BurgerIngredients;
