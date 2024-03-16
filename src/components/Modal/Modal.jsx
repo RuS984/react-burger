@@ -1,9 +1,17 @@
+// #region Import Modules
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+
 import PropTypes from "prop-types";
-import "./Modal.css";
+
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import ModalOverlay from "../ModalOverlay/ModalOverlay";
+// #endregion
+// #region Styles
+import style from "./Modal.module.css";
+
+// #endregion
 
 const modalRoot = document.getElementById("modals");
 
@@ -25,11 +33,11 @@ const Modal = ({ title, children, handleClickClose }) => {
   return ReactDOM.createPortal(
     <div>
       <ModalOverlay handleCloseClick={handleClickClose} />
-      <div className="modal pt-10 pr-10 pb-15 pl-10">
-        <div className="wrapper m-10">
-          <p className="title text text_type_main-large">{title}</p>
+      <div className={`${style.modal} pt-10 pr-10 pb-15 pl-10`}>
+        <div className={`${style.wrapper} m-10`}>
+          <p className={`${style.title} text text_type_main-large`}>{title}</p>
           <button
-            className="closeButton"
+            className={`${style.closeButton}`}
             type="button"
             onClick={handleClickClose}
           >

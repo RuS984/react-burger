@@ -1,77 +1,160 @@
-﻿import React from "react";
-import BurgerConstructorElement from "./BurgerConstructorElement";
-import OrderDetails from "../OrderDetails/OrderDetails";
+﻿// #region Styles
+import style from "./BurgerConstructor.module.css";
+// #endregion
 
+// #region Import Modules
 import {
   Button,
-  CurrencyIcon,
   ConstructorElement,
+  CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import React from "react";
+import { useDrop } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
+// #endregion
 
-import "./BurgerConstructor.css";
-
-import PropTypes from "prop-types";
-
-import propTypesburgerIngredients from "../BurgerIngredients/BurgerIngredientsPropType";
+// #region Import App components
 import Modal from "../Modal/Modal";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import BurgerConstructorElement from "./BurgerConstructorElement";
+// #endregion
 
-function BurgerConstructor({ selectedIngredients }) {
+// #region Import Redux elements
+import {
+  deleteIngredient,
+  dragBun,
+  dragIngredient,
+} from "../../services/actions/burgerConstructor";
+import { submitOrder } from "../../services/actions/order";
+// #endregion
+
+function BurgerConstructor() {
+  // #region Redux logic
+  const dispatch = useDispatch();
+  const { ingredientsWithoutBuns, buns } = useSelector(
+    (store) => store.constructorIngredients,
+  );
+  // #endregion
+
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const ref = React.useRef(null);
+
+  // #region React DnD
+  const [, dropIngredient] = useDrop({
+    accept: "ingredients",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+      hoveredItem: monitor.getItem(),
+    }),
+    drop(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
+
+      let ingredient = item.item;
+      const dragId = ingredient.id;
+
+      if (dragId === undefined) {
+        ingredient.type === "bun"
+          ? dispatch(dragBun(ingredient))
+          : dispatch(dragIngredient(ingredient, ingredientsWithoutBuns.length));
+        return;
+      }
+    },
+  });
+
+  const dragDropRef = dropIngredient(ref);
+  // #endregion
+
+  const { orderSum } = React.useMemo(() => {
+    let bunsPrice = buns.price === undefined ? 0 : buns.price * 2;
+    return {
+      orderSum:
+        ingredientsWithoutBuns.reduce(function (sum, current) {
+          return sum + current.price;
+        }, 0) + bunsPrice,
+    };
+  }, [ingredientsWithoutBuns, buns]);
+
+  // #region Handlers
   const handleCloseModal = () => {
     setIsOpen(false);
   };
 
-  const handleOpenModal = () => {
+  const submitOrderHandler = () => {
+    dispatch(submitOrder([...ingredientsWithoutBuns, buns]));
     setIsOpen(true);
   };
-
-  const { bun, ingredients, orderSum } = React.useMemo(() => {
-    return {
-      bun: selectedIngredients.find((item) => item.type === "bun"),
-      ingredients: selectedIngredients.filter((item) => item.type !== "bun"),
-      orderSum: selectedIngredients.reduce(function (sum, current) {
-        return sum + current.price;
-      }, 0)
-    };
-  }, [selectedIngredients]);
+  // #endregion
 
   return (
-    <div className="flexcolumn pt-25">
+    <div className={`${style.flexcolumn} pt-25`} ref={dragDropRef}>
       <div className="ml-8 pl-6">
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image_mobile}
-        />
+        {buns.price === undefined ? (
+          <p
+            className={`${style.flexjustifycentered} ml-1 text_type_main-default`}
+          >
+            {" "}
+            Добавьте булочку
+          </p>
+        ) : (
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={buns.name  + " верх"}
+            price={buns.price}
+            thumbnail={buns.image_mobile}
+          />
+        )}
       </div>
-      <div className="modifedscroll contentwrapbc">
-        {!!ingredients.length &&
-          ingredients.map((ingredients, index) => (
+      <div className={`${style.contentwrapbc} modifedscroll`}>
+        {!ingredientsWithoutBuns.length ? (
+          <p
+            className={`${style.flexjustifycentered} ml-10 text_type_main-default`}
+          >
+            {" "}
+            Добавьте ингридиент
+          </p>
+        ) : (
+          ingredientsWithoutBuns.map((ingredient, index) => (
             <BurgerConstructorElement
               type={undefined}
               isLocked={false}
-              text={ingredients.name}
-              price={ingredients.price}
-              thumbnail={ingredients.image_mobile}
-              key={"" + index + ingredients._id}
+              text={ingredient.name}
+              price={ingredient.price}
+              thumbnail={ingredient.image_mobile}
+              key={ingredient.id}
+              idx={index}
+              ingredient={ingredient}
+              handleClose={() => dispatch(deleteIngredient(ingredient))}
             />
-          ))}
+          ))
+        )}
       </div>
       <div className="ml-8 pl-6">
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image_mobile}
-        />
+        {buns.price === undefined ? (
+          <p
+            className={`${style.flexjustifycentered} ml-1 text_type_main-default`}
+          >
+            {" "}
+            Добавьте булочку
+          </p>
+        ) : (
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={buns.name + " низ"}
+            price={buns.price}
+            thumbnail={buns.image_mobile}
+          />
+        )}
       </div>
-      <div className="flex_bottomright">
-        <span className="flexcentered mt-10">
-          <span className="pr-10 flexcentered text text_type_digits-default">
+      <div className={`${style.flex_bottomright}`}>
+        <span className={`${style.flexcentered} mt-10`}>
+          <span
+            className={`${style.flexcentered} pr-10 text text_type_digits-default`}
+          >
             {orderSum}
             <CurrencyIcon type="primary" />
           </span>
@@ -79,7 +162,8 @@ function BurgerConstructor({ selectedIngredients }) {
             htmlType="button"
             type="primary"
             size="large"
-            onClick={() => handleOpenModal()}
+            onClick={() => submitOrderHandler()}
+            disabled={ingredientsWithoutBuns.length === 0}
           >
             Оформить заказ
           </Button>
@@ -93,10 +177,5 @@ function BurgerConstructor({ selectedIngredients }) {
     </div>
   );
 }
-
-BurgerConstructor.propTypes = {
-  selectedIngredients: PropTypes.arrayOf(propTypesburgerIngredients.isRequired)
-    .isRequired,
-};
 
 export default BurgerConstructor;

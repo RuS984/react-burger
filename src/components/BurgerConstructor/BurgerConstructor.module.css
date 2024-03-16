@@ -21,6 +21,11 @@
   align-items: center;
 }
 
+.flexjustifycentered {
+  display: flex;
+  justify-content: center;
+}
+
 .flex_bottomright {
   display: flex;
   align-items: flex-end;
