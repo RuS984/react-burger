@@ -102,7 +102,7 @@ function BurgerConstructor() {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={buns.name  + " верх"}
+            text={buns.name + " верх"}
             price={buns.price}
             thumbnail={buns.image_mobile}
           />

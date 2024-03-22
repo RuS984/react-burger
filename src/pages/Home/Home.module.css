@@ -3,7 +3,7 @@
   height: 100%;
   margin: auto;
 }
-/* 
+
 main {
   display: flex;
   flex-flow: row nowrap;
@@ -13,4 +13,4 @@ main {
   width: 100%;
   justify-content: space-between;
   flex-grow: 1;
-} */
+}

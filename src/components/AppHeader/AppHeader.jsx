@@ -6,6 +6,7 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from "react-router-dom";
 // #endregion
 
 // #region Styles
@@ -17,10 +18,18 @@ class AppHeader extends React.Component {
     return (
       <header className={`${style.AppHeader}`}>
         <span className={`${style.flex}`}>
-          <a href="#" className={`${style.btn} ${style.activebtn} p-5 mr-2 `}>
+          {/* <a href="#" className={`${style.btn} ${style.activebtn} p-5 mr-2 `}>
             <BurgerIcon type="primary" />
             <p className="ml-1 text_type_main-default"> Конструктор</p>
-          </a>
+          </a> */}
+          <NavLink
+            to="/"
+            className={`${style.btn} ${style.activebtn} p-5 mr-2 `}
+          >
+            <BurgerIcon type="primary" />
+            <p className="ml-1 text_type_main-default"> Конструктор</p>
+          </NavLink>
+
           <a href="#" className={`${style.btn} ${style.linkbtn} p-5`}>
             <ListIcon type="secondary" />
             <p className="ml-1 text_type_main-default">Лента заказов</p>
@@ -30,10 +39,17 @@ class AppHeader extends React.Component {
           <Logo />
         </span>
         <span className={`${style.flex}`}>
-          <a href="#" className={`${style.btn} ${style.linkbtn} p-5`}>
+          {/* <a href="#" className={`${style.btn} ${style.linkbtn} p-5`}>
             <ProfileIcon type="secondary" />
             <p className="ml-1 text_type_main-default"> Личный кабинет</p>
-          </a>
+          </a> */}
+          <NavLink
+            to="/profile"
+            className={`${style.btn} ${style.linkbtn} p-5`}
+          >
+            <ProfileIcon type="secondary" />
+            <p className="ml-1 text_type_main-default"> Личный кабинет</p>
+          </NavLink>
         </span>
       </header>
     );
