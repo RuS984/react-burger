@@ -12,6 +12,7 @@ import styles from "./ForgotPassword.module.css";
 export default function ForgotPassword() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [email, setEmail] = useState("");
 
   const handleEmailChange = (el) => setEmail(el.target.value);
@@ -26,7 +27,7 @@ export default function ForgotPassword() {
 
     dispatch(forgotPassword(email));
 
-    navigate("/resetpassword", { replace: true });
+    navigate("/resetpassword", { state: { previousLocationPathname: location.pathname }});
   };
 
   return (

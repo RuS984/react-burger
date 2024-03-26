@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import {
@@ -11,9 +11,11 @@ import styles from "./ResetPassword.module.css";
 
 export default function ResetPassword() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((store) => store.user.user);
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
+  const location = useLocation();
 
   const handlePasswordChange = (el) => setPassword(el.target.value);
   const handleTokenChange = (el) => setToken(el.target.value);
@@ -29,6 +31,13 @@ export default function ResetPassword() {
     dispatch(resetPassword(password, token));
   };
 
+  useEffect(() => {
+    if (location.state === null || location.state.previousLocationPathname !== "/forgotpassword")
+    {
+      navigate("/", { state: { previousLocationPathname: location.pathname }});
+    }
+  }, []);
+ 
   return (
     <main className={`${styles.main} mt-30`}>
       <h2 className={styles.header}>Восстановление пароля</h2>

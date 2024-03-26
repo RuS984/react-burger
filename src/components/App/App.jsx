@@ -1,7 +1,5 @@
 // #region Import Modules
 import React, { useEffect } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 // #endregion
 
@@ -13,7 +11,7 @@ import Modal from "../Modal/Modal";
 // #endregion
 
 // #region Import Redux elements
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 
 // #endregion
@@ -32,7 +30,6 @@ import ProtectedRoute from "../../pages/ProtectedRoute/ProtectedRoute";
 // #endregion
 
 // #region Styles
-import style from "./App.module.css";
 import stylesHome from "../../pages/Home/Home.module.css";
 // #endregion
 
@@ -42,75 +39,39 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  let state = location.state;
+  const background = location.state?.previousLocation;
 
   useEffect(() => {
     dispatch(getIngredients());
-  }, []);
+  }, [dispatch]);
   // #endregion
 
   return (
     <div className={`App ${stylesHome.MainContainer}`}>
       <AppHeader />
 
-      <Routes>
-        <Route
-          path="/registration"
-          element={
-            <ProtectedRoute element={<Registration />} needAuth={false} />
-          }
-        />
-        <Route
-          path="/login"
-          element={<ProtectedRoute element={<Login />} needAuth={false} />}
-        />
-        <Route
-          path="/forgotpassword"
-          element={
-            <ProtectedRoute element={<ForgotPassword />} needAuth={false} />
-          }
-        />
-        <Route
-          path="/resetpassword"
-          element={
-            <ProtectedRoute element={<ResetPassword />} needAuth={false} />
-          }
-        />
-
-        <Route
-          path="/"
-          element={<ProtectedRoute element={<Home />} needAuth={true} />}
-        />
-
-        {/* <Route path="/ingredients/:id" element={<Ingredient />}>
-          <Route path="" element={<BurgerIngredients />} />
-        </Route> */}
-
-        <Route
-          path="/profile"
-          element={<ProtectedRoute element={<Profile />} needAuth={true} />}
-        />
-
+      <Routes  location={background || location}>
+        <Route path="/registration" element={<ProtectedRoute element={<Registration />} needAuth={false} />} />
+        <Route path="/login" element={<ProtectedRoute element={<Login />} needAuth={false} />} />
+        <Route path="/forgotpassword" element={<ProtectedRoute element={<ForgotPassword />} needAuth={false} />}/>
+        <Route path="/resetpassword" element={<ProtectedRoute element={<ResetPassword />} needAuth={false} />}/>
+        <Route path="/" element={<Home />} />
+        <Route path='/ingredients/:id' element={<Ingredient/>}/>
+        <Route path="/profile" element={<ProtectedRoute element={<Profile />} needAuth={true} />} />
         <Route path="*" element={<NotFound />} />
+      </Routes>
 
-        {state?.backgroundLocation && (
+        {background && (
           <Routes>
-            <Route
-              path="/ingredients/:id"
-              element={
-                <Modal
-                  title={"Детали ингредиента"}
-                  handleClickClose={() => {
-                    navigate(`/`);
-                  }}
-                >
-                  <IngredientDetails ingredient={1} />
-                </Modal>
-              }
-            />
+            <Route path='/ingredients/:id' element={<Modal handleClickClose={() => {
+               navigate(`/`); 
+               }} 
+                  title={"Детали ингридиента"}>
+                <IngredientDetails/>
+            </Modal>}/>
           </Routes>
         )}
-      </Routes>
+
     </div>
   );
 }

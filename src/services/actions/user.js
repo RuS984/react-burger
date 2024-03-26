@@ -44,13 +44,23 @@ export const getUser = () => {
       const responce = await fetchWithRefresh(`${apiUrl}/auth/user`, {
         method: 'GET',
         headers: { authorization: localStorage.getItem("accessToken") }          
-      });               
-      dispatch(
+      })
+      .then((rsp) =>
         {
-          type: SET_USER_SUCCESS,
-          user: responce.user
+          dispatch(
+            {
+              type: SET_USER_SUCCESS,
+              user: rsp.user
+            }
+          ) 
         }
-      );     
+
+      )
+      .catch((error) => {
+        dispatch({ type: SET_USER_FAILED, error: error });
+        return;
+      });              
+   
   }
 }
 
@@ -66,7 +76,7 @@ export const registerUser = (email, password, name) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({email, password, name}),
-      });  
+      })
 
       localStorage.setItem("accessToken", response.accessToken);
       localStorage.setItem("refreshToken", response.refreshToken);
@@ -108,7 +118,7 @@ export const signInUser = (email, password) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({email, password}),
-      });  
+      })
 
       localStorage.setItem("accessToken", response.accessToken);
       localStorage.setItem("refreshToken", response.refreshToken);
