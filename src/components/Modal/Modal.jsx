@@ -31,7 +31,7 @@ const Modal = ({ title, children, handleClickClose }) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <div>
+    <>
       <ModalOverlay handleCloseClick={handleClickClose} />
       <div className={`${style.modal} pt-10 pr-10 pb-15 pl-10`}>
         <div className={`${style.wrapper} m-10`}>
@@ -46,7 +46,7 @@ const Modal = ({ title, children, handleClickClose }) => {
         </div>
         {children}
       </div>
-    </div>,
+    </>,
     modalRoot,
   );
 };
@@ -54,7 +54,7 @@ const Modal = ({ title, children, handleClickClose }) => {
 Modal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node.isRequired,
-  handleClickClose: PropTypes.func.isRequired,
+  //handleClickClose: PropTypes.func.isRequired,
 };
 
 export default Modal;
