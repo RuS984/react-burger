@@ -32,6 +32,12 @@ export default function Profile() {
     setPassword("");
   };
 
+  const updateUserSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateUser(login, email, password))
+    setPassword("");
+  };
+
   return (
     <div className={`${styles.profilemain} mt-30`}>
       <nav className={`mb-20 mr-15`}>
@@ -51,7 +57,7 @@ export default function Profile() {
         <p className={`${styles.text}`}>В этом разделе вы можете</p>
         <p className={`${styles.text}`}>изменить свои персональные данные</p>
       </nav>
-      <form className={styles.input}>
+      <form className={styles.input} onSubmit={updateUserSubmit}>
         <div className={`${styles.item} mb-6`}>
           <Input
             value={login}
@@ -84,7 +90,7 @@ export default function Profile() {
               <Button
                 type="primary"
                 htmlType="submit"
-                onClick={() => dispatch(updateUser(login, email, password))}
+                extraClass="mt-10"
               >
                 Сохранить
               </Button>

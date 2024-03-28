@@ -183,7 +183,7 @@ export const signOutUser = () => {
   }
 };
 
-export const updateUser = (email, password, name) => {
+export const updateUser = (name, email, password) => {
   return async function(dispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST,

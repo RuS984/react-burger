@@ -19,14 +19,13 @@ export const submitOrderRequest = (orderData) => {
       return item._id;
     }),
   };
-  return fetch(`${apiUrl}/orders`, {
+  return fetchWithRefresh(`${apiUrl}/orders`, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
   })
-    .then(checkResponse)
     .then((data) => {
       console.log(data);
       if (data?.success) return data;
