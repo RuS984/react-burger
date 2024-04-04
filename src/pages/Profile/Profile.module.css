@@ -1,0 +1,33 @@
+.profilemain {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+}
+
+.text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  opacity: 0.4;
+  color: rgba(133, 133, 173, 1);
+}
+
+.linktext {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  padding-top: 130px;
+  color: white;
+  text-decoration: none;
+}
+
+.button1 {
+  display: flex;
+  justify-content: start;
+  gap: 50px;
+  padding-top: 40px;
+  padding-left: 60px;
+}

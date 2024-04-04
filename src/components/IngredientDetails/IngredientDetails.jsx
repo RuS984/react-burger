@@ -1,19 +1,27 @@
+import { useParams } from "react-router";
+import { GetIngredientById } from "../../utils/helpers";
+
 // #region Import App components
-import propTypesburgerIngredients from "../BurgerIngredients/BurgerIngredientsPropType";
+
 // #endregion
 // #region Styles
 import style from "./IngredientDetails.module.css";
 
 // #endregion
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = () => {
+  const id = useParams();
+  const ingredient = GetIngredientById(id);
+  if(ingredient)
   return (
     <div className={`${style.ingredientDetails}`}>
-      <img
-        src={ingredient.image_large}
-        alt={ingredient.name}
-        className="ingredientImage pl-5 pr-5 pb-4"
-      />
+      <div className={`${style.ingredientImage}`}>
+        <img
+          src={ingredient.image_large}
+          alt={ingredient.name}
+          className="ingredientImage pl-5 pr-5 pb-4"
+        />
+      </div>
       <h2 className={`${style.ingredientName} text text_type_main-medium pb-8`}>
         {ingredient.name}
       </h2>
@@ -54,10 +62,6 @@ const IngredientDetails = ({ ingredient }) => {
     </div>
     // </Modal>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: propTypesburgerIngredients.isRequired,
 };
 
 export default IngredientDetails;

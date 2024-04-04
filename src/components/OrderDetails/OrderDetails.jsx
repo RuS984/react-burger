@@ -10,13 +10,13 @@ import style from "./OrderDetails.module.css";
 // #endregion
 
 const OrderDetails = () => {
-  const { orderNumber, isProcceed, isError, error } = useSelector(
+  const { orderNumber, isProceed, isError, error } = useSelector(
     (store) => store.order,
   );
 
   return (
     <div className={`${style.orderDetails}`}>
-      {!isProcceed && !isError ? (
+      {!isProceed && !isError ? (
         <span className={`${style.orderNumber} text text_type_digits-large`}>
           {orderNumber}
         </span>

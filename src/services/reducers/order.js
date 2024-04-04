@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   orderNumber: 0,
-  isProcceed: false,
+  isProceed: false,
   isError: false,
   error: "",
 };
@@ -17,14 +17,14 @@ export const orderReducer = (state = initialState, action) => {
       console.log("req", state);
       return {
         ...state,
-        isProcceed: true,
+        isProceed: true,
       };
     }
     case SUBMIT_ORDER_SUCCESS: {
       console.log("success", state);
       return {
         ...state,
-        isProcceed: false,
+        isProceed: false,
         orderNumber: action.order,
       };
     }
@@ -32,7 +32,7 @@ export const orderReducer = (state = initialState, action) => {
       console.log("fail", state);
       return {
         ...state,
-        isProcceed: false,
+        isProceed: false,
         isError: true,
         error: action.error,
       };

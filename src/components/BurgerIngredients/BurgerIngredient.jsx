@@ -7,6 +7,8 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { useLocation, useNavigate } from "react-router";
 // #endregion
 
 // #region Styles
@@ -48,14 +50,22 @@ function BurgerIngredient({ ingredient, handleClick }) {
     };
   }, [ingredientsWithoutBuns, buns, ingredient]);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const id = ingredient._id;
+  function displayModal() {
+      navigate(`/ingredients/${id}`, {state: {previousLocation: location}});
+  }
+
   return (
+    <>
     <div
       className={
         isDrag
           ? `${style.ingredientCard} mr-6 mb-8 ${style.dragging}`
           : `${style.ingredientCard} mr-6 mb-8`
       }
-      onClick={handleClick}
+      onClick={displayModal}
       ref={dragRef}
     >
       {ingredientQty > 0 && <Counter size="small" count={ingredientQty} />}
@@ -66,6 +76,7 @@ function BurgerIngredient({ ingredient, handleClick }) {
       </span>
       <span className={`${style.textcenterd}`}>{ingredient.name}</span>
     </div>
+    </>
   );
 }
 

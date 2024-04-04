@@ -11,6 +11,7 @@ import {
 import React from "react";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 // #endregion
 
 // #region Import App components
@@ -31,6 +32,7 @@ import { submitOrder } from "../../services/actions/order";
 function BurgerConstructor() {
   // #region Redux logic
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { ingredientsWithoutBuns, buns } = useSelector(
     (store) => store.constructorIngredients,
   );
@@ -83,8 +85,17 @@ function BurgerConstructor() {
   };
 
   const submitOrderHandler = () => {
-    dispatch(submitOrder([...ingredientsWithoutBuns, buns]));
-    setIsOpen(true);
+    if (localStorage.getItem("accessToken"))
+    {
+      dispatch(submitOrder([...ingredientsWithoutBuns, buns]));
+      setIsOpen(true);
+    }
+    else
+    {
+      navigate('/login');
+    }
+
+
   };
   // #endregion
 
@@ -102,7 +113,7 @@ function BurgerConstructor() {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={buns.name  + " верх"}
+            text={buns.name + " верх"}
             price={buns.price}
             thumbnail={buns.image_mobile}
           />
