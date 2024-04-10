@@ -24,7 +24,8 @@ export default function ForgotPassword() {
       alert("Введите email");
       return;
     }
-
+    
+    //@ts-ignore
     dispatch(forgotPassword(email));
 
     navigate("/resetpassword", { state: { previousLocationPathname: location.pathname }});
@@ -37,7 +38,6 @@ export default function ForgotPassword() {
         <EmailInput
           value={email}
           name="email"
-          type="text"
           placeholder="Введите email"
           extraClass="mt-6 mb-6"
           onChange={handleEmailChange}

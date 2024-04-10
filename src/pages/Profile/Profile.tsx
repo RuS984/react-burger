@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { signOutUser, updateUser } from "../../services/actions/user";
 
 export default function Profile() {
+  //@ts-ignore
   const user = useSelector((store) => store.user.user);
   const [login, setLogin] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -34,6 +35,7 @@ export default function Profile() {
 
   const updateUserSubmit = (e) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(updateUser(login, email, password))
     setPassword("");
   };
@@ -49,6 +51,7 @@ export default function Profile() {
         </NavLink>
         <NavLink
           to="/"
+          //@ts-ignore
           onClick={() => dispatch(signOutUser())}
           className={`${styles.linktext}`}
         >
@@ -72,7 +75,6 @@ export default function Profile() {
           <EmailInput
             value={email}
             name="email"
-            icon={"EditIcon"}
             placeholder={"Логин"}
             onChange={handleSetEmail}
           />

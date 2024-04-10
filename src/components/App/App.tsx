@@ -33,7 +33,7 @@ import ProtectedRoute from "../../pages/ProtectedRoute/ProtectedRoute";
 import stylesHome from "../../pages/Home/Home.module.css";
 // #endregion
 
-function App() {
+function App(): JSX.Element {
   // #region Redux logic
   const dispatch = useDispatch();
   const location = useLocation();
@@ -42,6 +42,7 @@ function App() {
   const background = location.state?.previousLocation;
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
   // #endregion
@@ -64,8 +65,8 @@ function App() {
         {background && (
           <Routes>
             <Route path='/ingredients/:id' element={<Modal handleClickClose={() => {
-               navigate(`/`); 
-               }} 
+                navigate(`/`); 
+              }} 
                   title={"Детали ингридиента"}>
                 <IngredientDetails/>
             </Modal>}/>

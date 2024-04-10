@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function ProtectedRoute({ element, needAuth }) {
   const dispatch = useDispatch();
+  //@ts-ignore
   const user = useSelector((state) => state.user);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const location = useLocation();
 
   const init = async () => {
+    //@ts-ignore
     await dispatch(getUser());
     setIsUserLoaded(true);
   };
@@ -31,5 +33,4 @@ export default function ProtectedRoute({ element, needAuth }) {
   } else {
     return !user.user ? element : <Navigate to="/" replace />;
   }
-  // return user ? element : <Navigate to="/login" replace/>;
 }

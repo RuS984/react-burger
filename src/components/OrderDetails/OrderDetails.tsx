@@ -9,8 +9,17 @@ import style from "./OrderDetails.module.css";
 
 // #endregion
 
-const OrderDetails = () => {
-  const { orderNumber, isProceed, isError, error } = useSelector(
+type TOrderParams = {
+  orderNumber: number;
+  isProceed: boolean;
+  isError: boolean;
+  error: string;
+};
+
+const OrderDetails = (): JSX.Element => {
+  
+  const { orderNumber, isProceed, isError, error }:TOrderParams = useSelector(
+    //@ts-ignore
     (store) => store.order,
   );
 

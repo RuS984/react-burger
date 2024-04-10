@@ -14,6 +14,7 @@ import styles from "./Login.module.css";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //@ts-ignore
   const user = useSelector((store) => store.user.user);
 
   const [email, setEmail] = useState("");
@@ -30,6 +31,7 @@ export default function Login() {
       return;
     }
 
+    //@ts-ignore
     dispatch(signInUser(email, password));
     if (user) {
       navigate("/", { replace: true });
@@ -47,7 +49,6 @@ export default function Login() {
           extraClass="mt-6 mb-6"
           value={email}
           name={"email"}
-          type={"text"}
           placeholder="email"
           onChange={handleSetEmail}
         />

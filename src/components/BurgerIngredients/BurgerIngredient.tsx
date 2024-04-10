@@ -16,12 +16,24 @@ import style from "./BurgerIngredients.module.css";
 // #endregion
 
 // #region Import App components
-import propTypesburgerIngredients from "./BurgerIngredientsPropType";
+import TBurgerIngredientsProps from "./TBurgerIngredientsProps";
+
 // #endregion
 
-function BurgerIngredient({ ingredient, handleClick }) {
+type TBurgerIngredientProps = {
+  ingredient: TBurgerIngredientsProps;
+  handleClick: () => void;
+};
+
+type TBurgerIngredientParams = {
+  ingredientsWithoutBuns: TBurgerIngredientsProps[];
+  buns: TBurgerIngredientsProps;
+};
+
+function BurgerIngredient({ ingredient, handleClick }:TBurgerIngredientProps): JSX.Element {
   // #region Redux logic
-  const { ingredientsWithoutBuns, buns } = useSelector(
+  const { ingredientsWithoutBuns, buns }: TBurgerIngredientParams = useSelector(
+    //@ts-ignore
     (store) => store.constructorIngredients,
   );
   // #endregion
@@ -81,8 +93,3 @@ function BurgerIngredient({ ingredient, handleClick }) {
 }
 
 export default BurgerIngredient;
-
-BurgerIngredient.propTypes = {
-  ingredient: propTypesburgerIngredients.isRequired,
-  ingredientQty: PropTypes.number,
-};

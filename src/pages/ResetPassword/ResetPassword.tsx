@@ -12,6 +12,7 @@ import styles from "./ResetPassword.module.css";
 export default function ResetPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //@ts-ignore
   const user = useSelector((store) => store.user.user);
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
@@ -28,6 +29,7 @@ export default function ResetPassword() {
       return;
     }
 
+    //@ts-ignore
     dispatch(resetPassword(password, token));
   };
 

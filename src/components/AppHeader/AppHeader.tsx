@@ -18,10 +18,6 @@ class AppHeader extends React.Component {
     return (
       <header className={`${style.AppHeader}`}>
         <span className={`${style.flex}`}>
-          {/* <a href="#" className={`${style.btn} ${style.activebtn} p-5 mr-2 `}>
-            <BurgerIcon type="primary" />
-            <p className="ml-1 text_type_main-default"> Конструктор</p>
-          </a> */}
           <NavLink
             to="/"
             className={`${style.btn} ${style.activebtn} p-5 mr-2 `}
@@ -39,10 +35,6 @@ class AppHeader extends React.Component {
           <Logo />
         </span>
         <span className={`${style.flex}`}>
-          {/* <a href="#" className={`${style.btn} ${style.linkbtn} p-5`}>
-            <ProfileIcon type="secondary" />
-            <p className="ml-1 text_type_main-default"> Личный кабинет</p>
-          </a> */}
           <NavLink
             to="/profile"
             className={`${style.btn} ${style.linkbtn} p-5`}

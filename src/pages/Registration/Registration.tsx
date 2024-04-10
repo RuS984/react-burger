@@ -35,6 +35,7 @@ export default function Registration() {
       return;
     }
 
+    //@ts-ignore
     dispatch(registerUser(email, password, login)).then((success) => {
       if (success) {
         navigate("/", { replace: true });
@@ -63,7 +64,6 @@ export default function Registration() {
         <EmailInput
           name="email"
           value={email}
-          type="text"
           placeholder="email"
           extraClass="mb-6"
           onChange={handleSetEmail}
