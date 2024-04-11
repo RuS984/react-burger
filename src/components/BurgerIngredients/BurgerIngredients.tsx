@@ -61,8 +61,8 @@ function BurgerIngredients() {
     setisOpen(false);
   };
 
-  const scrollHandle = (e) => {
-    let scrollTop = (e.currentTarget as HTMLElement).scrollTop; 
+  const scrollHandle = (e: React.SyntheticEvent <HTMLElement>) => {
+    let scrollTop = (e.currentTarget).scrollTop; 
     if (
       //@ts-ignore
       scrollTop > bunRef.current?.getBoundingClientRect().bottom &&

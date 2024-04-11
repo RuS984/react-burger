@@ -15,9 +15,9 @@ export default function ForgotPassword() {
   const location = useLocation();
   const [email, setEmail] = useState("");
 
-  const handleEmailChange = (el) => setEmail(el.target.value);
+  const handleEmailChange = (el: React.ChangeEvent<HTMLInputElement>) => setEmail(el.target.value);
 
-  const handleSubmit = (el) => {
+  const handleSubmit = (el: React.FormEvent<HTMLFormElement>) => {
     el.preventDefault();
 
     if (email.length === 0) {

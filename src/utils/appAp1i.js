@@ -1,3 +1,6 @@
+import TBurgerIngredientsProps from "../components/BurgerIngredients/BurgerIngredientsPropType";
+
+
 export const apiUrl = "https://norma.nomoreparties.space/api";
 
 const checkResponse = (res) => {

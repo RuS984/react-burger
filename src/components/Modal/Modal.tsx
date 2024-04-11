@@ -16,7 +16,7 @@ import style from "./Modal.module.css";
 const modalRoot = document.getElementById("modals") as Element;
 
 type TModalProps = {
-  title: string;
+  title?: string;
   children: JSX.Element;
   handleClickClose: () => void;
 };

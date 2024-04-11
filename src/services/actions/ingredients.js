@@ -1,4 +1,4 @@
-import { getIngredientsRequest } from "../../utils/appApi.js";
+import { getIngredientsRequest } from "../../utils/appApi";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";

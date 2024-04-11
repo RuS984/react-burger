@@ -17,9 +17,9 @@ export default function Profile() {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
 
-  const handleSetLogin = (el) => setLogin(el.target.value);
-  const handleSetEmail = (el) => setEmail(el.target.value);
-  const handleSetPassword = (el) => setPassword(el.target.value);
+  const handleSetLogin = (el:React.ChangeEvent<HTMLInputElement>) => setLogin(el.target.value);
+  const handleSetEmail = (el:React.ChangeEvent<HTMLInputElement>) => setEmail(el.target.value);
+  const handleSetPassword = (el:React.ChangeEvent<HTMLInputElement>) => setPassword(el.target.value);
 
   const dispatch = useDispatch();
   const isCredChanged =
@@ -33,7 +33,7 @@ export default function Profile() {
     setPassword("");
   };
 
-  const updateUserSubmit = (e) => {
+  const updateUserSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //@ts-ignore
     dispatch(updateUser(login, email, password))

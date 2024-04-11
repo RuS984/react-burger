@@ -1,4 +1,4 @@
-import { fetchWithRefresh, apiUrl } from "../../utils/appApi.js";
+import { fetchWithRefresh, apiUrl } from "../../utils/appApi";
 
 export const  SET_USER_REQUEST = "SET_USER_REQUEST";
 export const  SET_USER_SUCCESS = "SET_USER_SUCCESS";

@@ -20,7 +20,7 @@ import style from "./BurgerConstructor.module.css";
 import TBurgerIngredientsProps from "../BurgerIngredients/TBurgerIngredientsProps";
 
 type TBurgerConstructorElementProps = {
-  type: "top" | "bottom",
+  type: "top" | "bottom" | undefined,
   isLocked: boolean,
   text: string,
   price: number,
@@ -42,6 +42,7 @@ function BurgerConstructorElement({
 }:TBurgerConstructorElementProps) {
   // #region Redux logic
   const dispatch = useDispatch();
+  //@ts-ignore
   const { ingredientsWithoutBuns } = useSelector(
     //@ts-ignore
     (store) => store.constructorIngredients,
@@ -53,7 +54,7 @@ function BurgerConstructorElement({
   const [, dragSortRef] = useDrag({
     type: "ingredients",
     item: () => {
-      return { item: ingredient, index: ingredient.idx };
+      return { ingredient, index: ingredient.idx };
     },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
@@ -73,10 +74,10 @@ function BurgerConstructorElement({
         return;
       }
 
-      let ingredient = item.item;
+      let ingredient = item.ingredient as TBurgerIngredientsProps;;
       const dragId = ingredient.id;
       const dragIndex = ingredientsWithoutBuns.findIndex(
-        (i) => i.id === dragId,
+        (i:TBurgerIngredientsProps) => i.id === dragId,
       ) as number;
 
       if (dragIndex === idx) {

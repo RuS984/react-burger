@@ -42,7 +42,7 @@ function BurgerIngredient({ ingredient, handleClick }:TBurgerIngredientProps): J
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredients",
     item: () => {
-      return { item: ingredient };
+      return { ingredient };
     },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),

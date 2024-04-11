@@ -20,10 +20,10 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSetEmail = (el) => setEmail(el.target.value);
-  const handleSetPassword = (el) => setPassword(el.target.value);
+  const handleSetEmail = (el: React.ChangeEvent<HTMLInputElement>) => setEmail(el.target.value);
+  const handleSetPassword = (el: React.ChangeEvent<HTMLInputElement>) => setPassword(el.target.value);
 
-  const handleSubmitClick = async (e) => {
+  const handleSubmitClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (email.trim().length === 0 || password.trim().length === 0) {

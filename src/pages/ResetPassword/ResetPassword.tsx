@@ -18,10 +18,10 @@ export default function ResetPassword() {
   const [token, setToken] = useState("");
   const location = useLocation();
 
-  const handlePasswordChange = (el) => setPassword(el.target.value);
-  const handleTokenChange = (el) => setToken(el.target.value);
+  const handlePasswordChange = (el: React.ChangeEvent<HTMLInputElement>) => setPassword(el.target.value);
+  const handleTokenChange = (el: React.ChangeEvent<HTMLInputElement> ) => setToken(el.target.value);
 
-  const handleSubmit = (el) => {
+  const handleSubmit = (el: React.FormEvent<HTMLFormElement>) => {
     el.preventDefault();
 
     if (password.length === 0) {
