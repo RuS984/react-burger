@@ -15,16 +15,17 @@ export default function ForgotPassword() {
   const location = useLocation();
   const [email, setEmail] = useState("");
 
-  const handleEmailChange = (el) => setEmail(el.target.value);
+  const handleEmailChange = (el: React.ChangeEvent<HTMLInputElement>) => setEmail(el.target.value);
 
-  const handleSubmit = (el) => {
+  const handleSubmit = (el: React.FormEvent<HTMLFormElement>) => {
     el.preventDefault();
 
     if (email.length === 0) {
       alert("Введите email");
       return;
     }
-
+    
+    //@ts-ignore
     dispatch(forgotPassword(email));
 
     navigate("/resetpassword", { state: { previousLocationPathname: location.pathname }});
@@ -37,7 +38,6 @@ export default function ForgotPassword() {
         <EmailInput
           value={email}
           name="email"
-          type="text"
           placeholder="Введите email"
           extraClass="mt-6 mb-6"
           onChange={handleEmailChange}

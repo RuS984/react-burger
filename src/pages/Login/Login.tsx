@@ -14,15 +14,16 @@ import styles from "./Login.module.css";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //@ts-ignore
   const user = useSelector((store) => store.user.user);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSetEmail = (el) => setEmail(el.target.value);
-  const handleSetPassword = (el) => setPassword(el.target.value);
+  const handleSetEmail = (el: React.ChangeEvent<HTMLInputElement>) => setEmail(el.target.value);
+  const handleSetPassword = (el: React.ChangeEvent<HTMLInputElement>) => setPassword(el.target.value);
 
-  const handleSubmitClick = async (e) => {
+  const handleSubmitClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (email.trim().length === 0 || password.trim().length === 0) {
@@ -30,6 +31,7 @@ export default function Login() {
       return;
     }
 
+    //@ts-ignore
     dispatch(signInUser(email, password));
     if (user) {
       navigate("/", { replace: true });
@@ -47,7 +49,6 @@ export default function Login() {
           extraClass="mt-6 mb-6"
           value={email}
           name={"email"}
-          type={"text"}
           placeholder="email"
           onChange={handleSetEmail}
         />

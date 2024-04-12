@@ -27,6 +27,7 @@ import {
   dragIngredient,
 } from "../../services/actions/burgerConstructor";
 import { submitOrder } from "../../services/actions/order";
+import TBurgerIngredientsProps from "../BurgerIngredients/TBurgerIngredientsProps";
 // #endregion
 
 function BurgerConstructor() {
@@ -34,6 +35,7 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredientsWithoutBuns, buns } = useSelector(
+    //@ts-ignore
     (store) => store.constructorIngredients,
   );
   // #endregion
@@ -49,31 +51,34 @@ function BurgerConstructor() {
       isHover: monitor.isOver(),
       hoveredItem: monitor.getItem(),
     }),
-    drop(item, monitor) {
+    drop(item:any, monitor) {
       if (!ref.current) {
         return;
       }
 
-      let ingredient = item.item;
+      
+      let ingredient = item.ingredient as TBurgerIngredientsProps;
       const dragId = ingredient.id;
 
       if (dragId === undefined) {
         ingredient.type === "bun"
+          //@ts-ignore
           ? dispatch(dragBun(ingredient))
+          //@ts-ignore
           : dispatch(dragIngredient(ingredient, ingredientsWithoutBuns.length));
         return;
       }
     },
   });
 
-  const dragDropRef = dropIngredient(ref);
+  const dragDropRef = dropIngredient(ref) as any;
   // #endregion
 
   const { orderSum } = React.useMemo(() => {
     let bunsPrice = buns.price === undefined ? 0 : buns.price * 2;
     return {
       orderSum:
-        ingredientsWithoutBuns.reduce(function (sum, current) {
+        ingredientsWithoutBuns.reduce(function (sum: number, current: TBurgerIngredientsProps) {
           return sum + current.price;
         }, 0) + bunsPrice,
     };
@@ -87,6 +92,7 @@ function BurgerConstructor() {
   const submitOrderHandler = () => {
     if (localStorage.getItem("accessToken"))
     {
+      //@ts-ignore
       dispatch(submitOrder([...ingredientsWithoutBuns, buns]));
       setIsOpen(true);
     }
@@ -128,7 +134,7 @@ function BurgerConstructor() {
             Добавьте ингридиент
           </p>
         ) : (
-          ingredientsWithoutBuns.map((ingredient, index) => (
+          ingredientsWithoutBuns.map((ingredient: TBurgerIngredientsProps, index: number) => (
             <BurgerConstructorElement
               type={undefined}
               isLocked={false}
@@ -138,6 +144,7 @@ function BurgerConstructor() {
               key={ingredient.id}
               idx={index}
               ingredient={ingredient}
+              //@ts-ignore
               handleClose={() => dispatch(deleteIngredient(ingredient))}
             />
           ))

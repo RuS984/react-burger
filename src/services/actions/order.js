@@ -1,4 +1,4 @@
-import { submitOrderRequest } from "../../utils/appApi.js";
+import { submitOrderRequest } from "../../utils/appApi";
 
 export const SUBMIT_ORDER_REQUEST = "SUBMIT_ORDER_REQUEST";
 export const SUBMIT_ORDER_SUCCESS = "SUBMIT_ORDER_SUCCESS";

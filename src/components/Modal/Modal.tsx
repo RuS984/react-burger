@@ -13,11 +13,17 @@ import style from "./Modal.module.css";
 
 // #endregion
 
-const modalRoot = document.getElementById("modals");
+const modalRoot = document.getElementById("modals") as Element;
 
-const Modal = ({ title, children, handleClickClose }) => {
+type TModalProps = {
+  title?: string;
+  children: JSX.Element;
+  handleClickClose: () => void;
+};
+
+const Modal = ({ title, children, handleClickClose }: TModalProps): JSX.Element => {
   useEffect(() => {
-    const handleEscapeKey = (e) => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         handleClickClose();
       }
@@ -49,12 +55,6 @@ const Modal = ({ title, children, handleClickClose }) => {
     </>,
     modalRoot,
   );
-};
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  //handleClickClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

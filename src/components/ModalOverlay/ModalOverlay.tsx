@@ -7,17 +7,17 @@ import style from "./ModalOverlay.module.css";
 
 // #endregion
 
-const ModalOverlay = ({ handleCloseClick }) => {
+type TModalOverlayProps = {
+  handleCloseClick: () => void;
+};
+
+const ModalOverlay = ({ handleCloseClick }: TModalOverlayProps): JSX.Element => {
   return (
     <div
       className={`${style.modaloverlay}`}
       onClick={() => handleCloseClick()}
     ></div>
   );
-};
-
-ModalOverlay.propTypes = {
-  handleCloseClick: PropTypes.func.isRequired,
 };
 
 export default ModalOverlay;

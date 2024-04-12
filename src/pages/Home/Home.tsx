@@ -22,7 +22,9 @@ import style from "./Home.module.css";
 
 function Home() {
   // #region Redux logic
+  //@ts-ignore
   const ingredients = useSelector((store) => store.ingredients.data);
+  //@ts-ignore
   const hasError = useSelector((store) => store.ingredients.hasError);
 
   // #endregion

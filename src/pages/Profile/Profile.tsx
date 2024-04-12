@@ -11,14 +11,15 @@ import React, { useState } from "react";
 import { signOutUser, updateUser } from "../../services/actions/user";
 
 export default function Profile() {
+  //@ts-ignore
   const user = useSelector((store) => store.user.user);
   const [login, setLogin] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
 
-  const handleSetLogin = (el) => setLogin(el.target.value);
-  const handleSetEmail = (el) => setEmail(el.target.value);
-  const handleSetPassword = (el) => setPassword(el.target.value);
+  const handleSetLogin = (el:React.ChangeEvent<HTMLInputElement>) => setLogin(el.target.value);
+  const handleSetEmail = (el:React.ChangeEvent<HTMLInputElement>) => setEmail(el.target.value);
+  const handleSetPassword = (el:React.ChangeEvent<HTMLInputElement>) => setPassword(el.target.value);
 
   const dispatch = useDispatch();
   const isCredChanged =
@@ -32,8 +33,9 @@ export default function Profile() {
     setPassword("");
   };
 
-  const updateUserSubmit = (e) => {
+  const updateUserSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(updateUser(login, email, password))
     setPassword("");
   };
@@ -49,6 +51,7 @@ export default function Profile() {
         </NavLink>
         <NavLink
           to="/"
+          //@ts-ignore
           onClick={() => dispatch(signOutUser())}
           className={`${styles.linktext}`}
         >
@@ -72,7 +75,6 @@ export default function Profile() {
           <EmailInput
             value={email}
             name="email"
-            icon={"EditIcon"}
             placeholder={"Логин"}
             onChange={handleSetEmail}
           />

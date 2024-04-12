@@ -19,11 +19,11 @@ export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSetLogin = (el) => setLogin(el.target.value);
-  const handleSetEmail = (el) => setEmail(el.target.value);
-  const handleSetPassword = (el) => setPassword(el.target.value);
+  const handleSetLogin = (el:React.ChangeEvent<HTMLInputElement>) => setLogin(el.target.value);
+  const handleSetEmail = (el:React.ChangeEvent<HTMLInputElement>) => setEmail(el.target.value);
+  const handleSetPassword = (el:React.ChangeEvent<HTMLInputElement>) => setPassword(el.target.value);
 
-  const handleSubmitClick = async (e) => {
+  const handleSubmitClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (
@@ -35,6 +35,7 @@ export default function Registration() {
       return;
     }
 
+    //@ts-ignore
     dispatch(registerUser(email, password, login)).then((success) => {
       if (success) {
         navigate("/", { replace: true });
@@ -63,7 +64,6 @@ export default function Registration() {
         <EmailInput
           name="email"
           value={email}
-          type="text"
           placeholder="email"
           extraClass="mb-6"
           onChange={handleSetEmail}

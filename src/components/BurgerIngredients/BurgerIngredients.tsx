@@ -16,19 +16,22 @@ import { useSelector } from "react-redux";
 
 // #region Styles
 import style from "./BurgerIngredients.module.css";
-import propTypesburgerIngredients from "./BurgerIngredientsPropType";
+
+import TBurgerIngredientsProps from "./TBurgerIngredientsProps";
 // #endregion
 
 function BurgerIngredients() {
   const [isOpen, setisOpen] = React.useState(false);
-  const [item, setItem] = React.useState({});
+  const [item, setItem] = React.useState<TBurgerIngredientsProps | object>({});
 
   const [current, setCurrent] = React.useState("bunRef");
-  const bunRef = React.useRef(null);
-  const sauceRef = React.useRef(null);
-  const mainRef = React.useRef(null);
+  
+  const bunRef = React.useRef<HTMLDivElement | null>(null);
+  const sauceRef = React.useRef<HTMLDivElement | null>(null);
+  const mainRef = React.useRef<HTMLDivElement | null>(null);
 
-  const burgerIngredients = useSelector((store) => store.ingredients.data);
+  //@ts-ignore
+  const burgerIngredients: TBurgerIngredientsProps[] = useSelector((store) => store.ingredients.data);
 
   const {
     filteredIngredientBun,
@@ -49,7 +52,7 @@ function BurgerIngredients() {
   }, [burgerIngredients]);
 
   // #region Handlers
-  const handleOpenModal = (ingredient) => {
+  const handleOpenModal = (ingredient: TBurgerIngredientsProps) => {
     setItem(ingredient);
     setisOpen(true);
   };
@@ -58,28 +61,34 @@ function BurgerIngredients() {
     setisOpen(false);
   };
 
-  const scrollHandle = (e) => {
-    let scrollTop = e.currentTarget.scrollTop;
+  const scrollHandle = (e: React.SyntheticEvent <HTMLElement>) => {
+    let scrollTop = (e.currentTarget).scrollTop; 
     if (
+      //@ts-ignore
       scrollTop > bunRef.current?.getBoundingClientRect().bottom &&
+      //@ts-ignore
       scrollTop < sauceRef.current?.getBoundingClientRect().bottom
     ) {
       setCurrent("bunRef");
     }
     if (
+      //@ts-ignore
       scrollTop > sauceRef.current?.getBoundingClientRect().bottom &&
+      //@ts-ignore
       scrollTop < mainRef.current?.getBoundingClientRect().bottom
     ) {
       setCurrent("sauceRef");
     }
+    //@ts-ignore
     if (scrollTop > mainRef.current?.getBoundingClientRect().bottom) {
       setCurrent("mainRef");
     }
   };
 
-  const setActiveTab = (tab) => {
+  const setActiveTab = (tab:string) => {
     setCurrent(tab);
 
+    //@ts-ignore
     document.querySelector(`[data-title="${tab}"]`).scrollIntoView({
       behavior: "smooth",
       inline: "start",
@@ -163,7 +172,7 @@ function BurgerIngredients() {
       </div>
       {isOpen && (
         <Modal title={"Детали ингредиента"} handleClickClose={handleCloseModal}>
-          <IngredientDetails ingredient={item} />
+          <IngredientDetails />
         </Modal>
       )}
     </section>

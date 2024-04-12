@@ -12,15 +12,16 @@ import styles from "./ResetPassword.module.css";
 export default function ResetPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //@ts-ignore
   const user = useSelector((store) => store.user.user);
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const location = useLocation();
 
-  const handlePasswordChange = (el) => setPassword(el.target.value);
-  const handleTokenChange = (el) => setToken(el.target.value);
+  const handlePasswordChange = (el: React.ChangeEvent<HTMLInputElement>) => setPassword(el.target.value);
+  const handleTokenChange = (el: React.ChangeEvent<HTMLInputElement> ) => setToken(el.target.value);
 
-  const handleSubmit = (el) => {
+  const handleSubmit = (el: React.FormEvent<HTMLFormElement>) => {
     el.preventDefault();
 
     if (password.length === 0) {
@@ -28,6 +29,7 @@ export default function ResetPassword() {
       return;
     }
 
+    //@ts-ignore
     dispatch(resetPassword(password, token));
   };
 
