@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "../../utils/Types/reduxThunkTypes";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword } from "../../services/actions/user";
 
 import styles from "./ResetPassword.module.css";
 
+
 export default function ResetPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //@ts-ignore
   const user = useSelector((store) => store.user.user);
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
@@ -29,7 +30,6 @@ export default function ResetPassword() {
       return;
     }
 
-    //@ts-ignore
     dispatch(resetPassword(password, token));
   };
 
@@ -44,10 +44,9 @@ export default function ResetPassword() {
     <main className={`${styles.main} mt-30`}>
       <h2 className={styles.header}>Восстановление пароля</h2>
       <form className={styles.inputs} onSubmit={handleSubmit}>
-        <Input
+        <PasswordInput
           value={password}
           name={"password"}
-          type={"text"}
           placeholder="Введите новый пароль"
           onChange={handlePasswordChange}
         />

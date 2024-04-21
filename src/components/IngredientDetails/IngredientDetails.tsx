@@ -10,8 +10,7 @@ import style from "./IngredientDetails.module.css";
 // #endregion
 
 const IngredientDetails = (): JSX.Element  => {
-  const id = useParams();
-  //@ts-ignore
+  const {id} = useParams() ;
   const ingredient = GetIngredientById(id);
   if(ingredient)
     {

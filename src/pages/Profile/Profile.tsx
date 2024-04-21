@@ -1,5 +1,5 @@
 import styles from "./Profile.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../utils/Types/reduxThunkTypes";
 import { NavLink } from "react-router-dom";
 import {
   EmailInput,
@@ -10,11 +10,11 @@ import {
 import React, { useState } from "react";
 import { signOutUser, updateUser } from "../../services/actions/user";
 
+
 export default function Profile() {
-  //@ts-ignore
   const user = useSelector((store) => store.user.user);
-  const [login, setLogin] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const [login, setLogin] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
 
   const handleSetLogin = (el:React.ChangeEvent<HTMLInputElement>) => setLogin(el.target.value);
@@ -23,19 +23,18 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const isCredChanged =
-    login.trim() !== user.name ||
-    email.trim() !== user.email ||
+    login.trim() !== user?.name || 
+    email.trim() !== user?.email ||
     password.trim() !== "";
 
   const resetChanges = () => {
-    setLogin(user.name);
-    setEmail(user.email);
+    setLogin(user?.name || "");
+    setEmail(user?.email || "");
     setPassword("");
   };
 
   const updateUserSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(updateUser(login, email, password))
     setPassword("");
   };
@@ -51,7 +50,6 @@ export default function Profile() {
         </NavLink>
         <NavLink
           to="/"
-          //@ts-ignore
           onClick={() => dispatch(signOutUser())}
           className={`${styles.linktext}`}
         >

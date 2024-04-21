@@ -10,7 +10,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../utils/Types/reduxThunkTypes";
 import { useNavigate } from 'react-router-dom';
 // #endregion
 
@@ -27,7 +27,8 @@ import {
   dragIngredient,
 } from "../../services/actions/burgerConstructor";
 import { submitOrder } from "../../services/actions/order";
-import TBurgerIngredientsProps from "../BurgerIngredients/TBurgerIngredientsProps";
+import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
+
 // #endregion
 
 function BurgerConstructor() {
@@ -35,7 +36,6 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredientsWithoutBuns, buns } = useSelector(
-    //@ts-ignore
     (store) => store.constructorIngredients,
   );
   // #endregion
@@ -62,10 +62,8 @@ function BurgerConstructor() {
 
       if (dragId === undefined) {
         ingredient.type === "bun"
-          //@ts-ignore
           ? dispatch(dragBun(ingredient))
-          //@ts-ignore
-          : dispatch(dragIngredient(ingredient, ingredientsWithoutBuns.length));
+          : dispatch(dragIngredient(ingredient));
         return;
       }
     },
@@ -75,7 +73,7 @@ function BurgerConstructor() {
   // #endregion
 
   const { orderSum } = React.useMemo(() => {
-    let bunsPrice = buns.price === undefined ? 0 : buns.price * 2;
+    let bunsPrice = (buns === null || buns.price === undefined) ? 0 : buns.price * 2;
     return {
       orderSum:
         ingredientsWithoutBuns.reduce(function (sum: number, current: TBurgerIngredientsProps) {
@@ -108,7 +106,7 @@ function BurgerConstructor() {
   return (
     <div className={`${style.flexcolumn} pt-25`} ref={dragDropRef}>
       <div className="ml-8 pl-6">
-        {buns.price === undefined ? (
+        {(buns === null || buns.price === undefined) ? (
           <p
             className={`${style.flexjustifycentered} ml-1 text_type_main-default`}
           >
@@ -144,14 +142,13 @@ function BurgerConstructor() {
               key={ingredient.id}
               idx={index}
               ingredient={ingredient}
-              //@ts-ignore
               handleClose={() => dispatch(deleteIngredient(ingredient))}
             />
           ))
         )}
       </div>
       <div className="ml-8 pl-6">
-        {buns.price === undefined ? (
+        {(buns === null || buns.price === undefined) ? (
           <p
             className={`${style.flexjustifycentered} ml-1 text_type_main-default`}
           >

@@ -11,7 +11,7 @@ import Modal from "../Modal/Modal";
 // #endregion
 
 // #region Import Redux elements
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/Types/reduxThunkTypes";
 import { getIngredients } from "../../services/actions/ingredients";
 
 // #endregion
@@ -31,6 +31,7 @@ import ProtectedRoute from "../../pages/ProtectedRoute/ProtectedRoute";
 
 // #region Styles
 import stylesHome from "../../pages/Home/Home.module.css";
+
 // #endregion
 
 function App(): JSX.Element {
@@ -42,7 +43,6 @@ function App(): JSX.Element {
   const background = location.state?.previousLocation;
 
   useEffect(() => {
-    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
   // #endregion

@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../utils/Types/reduxThunkTypes";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   EmailInput,
   Input,
   Button,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { signInUser } from "../../services/actions/user";
 
 import styles from "./Login.module.css";
 
+
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //@ts-ignore
   const user = useSelector((store) => store.user.user);
 
   const [email, setEmail] = useState("");
@@ -31,7 +32,6 @@ export default function Login() {
       return;
     }
 
-    //@ts-ignore
     dispatch(signInUser(email, password));
     if (user) {
       navigate("/", { replace: true });
@@ -52,10 +52,9 @@ export default function Login() {
           placeholder="email"
           onChange={handleSetEmail}
         />
-        <Input
+        <PasswordInput
           value={password}
           name={"password"}
-          type={"text"}
           placeholder="Пароль"
           onChange={handleSetPassword}
         />

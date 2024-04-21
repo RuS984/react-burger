@@ -1,4 +1,4 @@
-import TBurgerIngredientsProps from "../components/BurgerIngredients/TBurgerIngredientsProps";
+import { TBurgerIngredientsProps } from "./Types/ingredientsTypes";
 
 
 export const apiUrl = "https://norma.nomoreparties.space/api";

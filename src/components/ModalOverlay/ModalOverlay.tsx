@@ -4,12 +4,9 @@ import PropTypes from "prop-types";
 // #endregion
 // #region Styles
 import style from "./ModalOverlay.module.css";
-
 // #endregion
 
-type TModalOverlayProps = {
-  handleCloseClick: () => void;
-};
+import { TModalOverlayProps } from "../../utils/Types/componentTypes";
 
 const ModalOverlay = ({ handleCloseClick }: TModalOverlayProps): JSX.Element => {
   return (

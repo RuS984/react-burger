@@ -11,13 +11,14 @@ import BurgerIngredient from "./BurgerIngredient";
 // #endregion
 
 // #region Import Redux elements
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/Types/reduxThunkTypes";
 // #endregion
 
 // #region Styles
 import style from "./BurgerIngredients.module.css";
+import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
 
-import TBurgerIngredientsProps from "./TBurgerIngredientsProps";
+
 // #endregion
 
 function BurgerIngredients() {
@@ -30,7 +31,6 @@ function BurgerIngredients() {
   const sauceRef = React.useRef<HTMLDivElement | null>(null);
   const mainRef = React.useRef<HTMLDivElement | null>(null);
 
-  //@ts-ignore
   const burgerIngredients: TBurgerIngredientsProps[] = useSelector((store) => store.ingredients.data);
 
   const {

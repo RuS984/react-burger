@@ -1,3 +1,5 @@
+import { TBurgerConstructorActions } from "../../utils/Types/burgerConstructorTypes";
+import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
 import {
   DELETE_INGREDIENT_FROM_CONSTRUCTOR,
   DRAG_BUN_IN_CONSTRUCTOR,
@@ -5,12 +7,17 @@ import {
   SORT_INGREDIENT_IN_CONSTRUCTOR,
 } from "../actions/burgerConstructor";
 
-const initialState = {
-  ingredientsWithoutBuns: [],
-  buns: {},
+type TBurgerConstructorParams = {
+  ingredientsWithoutBuns: TBurgerIngredientsProps[],
+  buns: TBurgerIngredientsProps | null,
 };
 
-export const constructorIngredientsReducer = (state = initialState, action) => {
+const initialState:TBurgerConstructorParams = {
+  ingredientsWithoutBuns: [],
+  buns: null,
+};
+
+export const constructorIngredientsReducer = (state = initialState, action: TBurgerConstructorActions) => {
   switch (action.type) {
     case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
       return {
@@ -21,11 +28,11 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
         ),
       };
     case DRAG_BUN_IN_CONSTRUCTOR: {
-      let buns = { ...action.payload.ingredient, id: action.payload.itemId };
+      let buns: TBurgerIngredientsProps = { ...action.payload.ingredient, id: action.payload.itemId };
       return { ...state, isLoading: false, buns: buns };
     }
     case DRAG_INGREDIENT_IN_CONSTRUCTOR: {
-      let ingredient = {
+      let ingredient: TBurgerIngredientsProps = {
         ...action.payload.ingredient,
         id: action.payload.itemId,
       };

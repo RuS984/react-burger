@@ -10,16 +10,13 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 // #endregion
 // #region Styles
 import style from "./Modal.module.css";
+import { TModalProps } from "../../utils/Types/componentTypes";
 
 // #endregion
 
 const modalRoot = document.getElementById("modals") as Element;
 
-type TModalProps = {
-  title?: string;
-  children: JSX.Element;
-  handleClickClose: () => void;
-};
+
 
 const Modal = ({ title, children, handleClickClose }: TModalProps): JSX.Element => {
   useEffect(() => {

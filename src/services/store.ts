@@ -1,14 +1,49 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { ingredientsReducer } from "./reducers/ingredients";
-import { constructorIngredientsReducer } from "./reducers/burgerConstructor";
-import { orderReducer } from "./reducers/order";
-import { userReducer } from "./reducers/user";
+import {
+  TypedUseSelectorHook,
+  useDispatch as dispatchHook,
+  useSelector as selectorHook
+} from 'react-redux';
+
+
+import { rootReducer } from "./reducers";
+
+//export type RootState = ReturnType<typeof rootReducer>
+
+// export const store = configureStore({
+//   reducer: {
+//     ingredients: ingredientsReducer,
+//     constructorIngredients: constructorIngredientsReducer,
+//     order: orderReducer,
+//     user: userReducer,
+//   },
+// });
 
 export const store = configureStore({
-  reducer: {
-    ingredients: ingredientsReducer,
-    constructorIngredients: constructorIngredientsReducer,
-    order: orderReducer,
-    user: userReducer,
-  },
-});
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware()
+    //.concat(wsMiddleware)
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

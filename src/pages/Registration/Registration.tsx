@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "../../utils/Types/reduxThunkTypes";
 import {
   EmailInput,
   Input,
@@ -11,6 +11,7 @@ import {
 import { registerUser } from "../../services/actions/user";
 
 import styles from "./Registration.module.css";
+
 
 export default function Registration() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function Registration() {
       alert("Заполните все поля");
       return;
     }
-
+    
     //@ts-ignore
     dispatch(registerUser(email, password, login)).then((success) => {
       if (success) {

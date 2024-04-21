@@ -1,10 +1,12 @@
+import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
+import { AppDispatch } from "../../utils/Types/reduxThunkTypes";
 import { submitOrderRequest } from "../../utils/appApi";
 
-export const SUBMIT_ORDER_REQUEST = "SUBMIT_ORDER_REQUEST";
-export const SUBMIT_ORDER_SUCCESS = "SUBMIT_ORDER_SUCCESS";
-export const SUBMIT_ORDER_FAILED = "SUBMIT_ORDER_FAILED";
+export const SUBMIT_ORDER_REQUEST: "SUBMIT_ORDER_REQUEST" = "SUBMIT_ORDER_REQUEST";
+export const SUBMIT_ORDER_SUCCESS: "SUBMIT_ORDER_SUCCESS" = "SUBMIT_ORDER_SUCCESS";
+export const SUBMIT_ORDER_FAILED : "SUBMIT_ORDER_FAILED" = "SUBMIT_ORDER_FAILED";
 
-export const submitOrder = (orderData) => (dispatch) => {
+export const submitOrder = (orderData: TBurgerIngredientsProps[] ) => (dispatch: AppDispatch) => {
   dispatch({
     type: SUBMIT_ORDER_REQUEST,
   });
@@ -12,11 +14,10 @@ export const submitOrder = (orderData) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: SUBMIT_ORDER_SUCCESS,
-        name: res.name,
-        order: res.order.number,
+        payload: {name: res.name, order: res.order.number},
       });
     })
     .catch((error) => {
-      dispatch({ type: SUBMIT_ORDER_FAILED, error: error });
+      dispatch({ type: SUBMIT_ORDER_FAILED, payload: {  error: error } });
     });
 };
