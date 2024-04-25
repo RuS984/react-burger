@@ -7,23 +7,17 @@ import {
 
 
 import { rootReducer } from "./reducers";
-
-//export type RootState = ReturnType<typeof rootReducer>
-
-// export const store = configureStore({
-//   reducer: {
-//     ingredients: ingredientsReducer,
-//     constructorIngredients: constructorIngredientsReducer,
-//     order: orderReducer,
-//     user: userReducer,
-//   },
-// });
+import { socketMiddleware } from "./middleware/socketMiddleware";
+import { API_WEB_SOCKET, API_ORDERS_USER } from "../utils/appWebSockets";
+import { WSOrdersFeedRootActions } from "./actions/ordersFeed";
+import { WSOrdersFeedRootActionsUser } from "./actions/ordersFeedUser";
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
-    //.concat(wsMiddleware)
+    .concat(socketMiddleware(API_WEB_SOCKET, WSOrdersFeedRootActions))
+    .concat(socketMiddleware(API_ORDERS_USER, WSOrdersFeedRootActionsUser))
   }
 })
 

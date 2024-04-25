@@ -1,5 +1,12 @@
 import { GET_INGREDIENTS_FAILED, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS } from "../../services/actions/ingredients";
 
+
+export type TIngredientsProps = {
+  isLoading: boolean,
+  hasError: boolean,
+  data: TBurgerIngredientsProps[],
+};
+
 export type TBurgerIngredientsProps = {
     _id: string,
     name: string,

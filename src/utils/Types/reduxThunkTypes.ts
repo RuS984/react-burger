@@ -8,18 +8,18 @@ import { TUserActions } from './userTypes';
 
 //add to fix https://github.com/reduxjs/redux-thunk/issues/333
 import type {} from 'redux-thunk/extend-redux'
+import { TWSOrdersFeedActions } from './ordersFeedTypes';
+import { TWSOrdersFeedActionsUser } from './ordersFeedTypesUser';
 
 export type RootState = ReturnType<typeof store.getState>;
 export type TApplicationActions = TBurgerConstructorActions | TSubmitOrderActions | TIngredientsAction | TUserActions
-//| TWebSocketActions | TWebSocketActionsUser
+| TWSOrdersFeedActions | TWSOrdersFeedActionsUser
 ;
 
 
 export type AppThunkAction<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TApplicationActions>;
 
-//export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>;
 export type AppDispatch<TReturnType = void> = (action: TApplicationActions | AppThunkAction<TReturnType>) => TReturnType;
 
-//export const useDispatch = () => dispatchHook<AppDispatch>();
 export const useDispatch: () => AppDispatch = dispatchHook;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

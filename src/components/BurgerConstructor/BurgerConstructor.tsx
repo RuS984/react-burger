@@ -90,8 +90,7 @@ function BurgerConstructor() {
   const submitOrderHandler = () => {
     if (localStorage.getItem("accessToken"))
     {
-      //@ts-ignore
-      dispatch(submitOrder([...ingredientsWithoutBuns, buns]));
+      dispatch(submitOrder([...ingredientsWithoutBuns, buns] as TBurgerIngredientsProps[] ));
       setIsOpen(true);
     }
     else

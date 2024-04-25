@@ -1,11 +1,11 @@
-import { TIngredientsAction } from "../../utils/Types/ingredientsTypes";
+import { TIngredientsAction, TIngredientsProps } from "../../utils/Types/ingredientsTypes";
 import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
 } from "../actions/ingredients";
 
-const initialState = {
+const initialState: TIngredientsProps = {
   isLoading: false,
   hasError: false,
   data: [],

@@ -6,7 +6,6 @@ import { TProtectedRouteProps } from "../../utils/Types/pageTypes";
 
 export default function ProtectedRoute({ element, needAuth }:TProtectedRouteProps) {
   const dispatch = useDispatch();
-  //=
   const user = useSelector((state) => state.user);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const location = useLocation();

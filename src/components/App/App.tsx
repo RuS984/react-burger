@@ -26,11 +26,15 @@ import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import Profile from "../../pages/Profile/Profile";
 import Ingredient from "../../pages/Ingredient/Ingredient";
 import ProtectedRoute from "../../pages/ProtectedRoute/ProtectedRoute";
+import OrdersFeed from "../../pages/OrdersFeed/OrdersFeed";
 
 // #endregion
 
 // #region Styles
 import stylesHome from "../../pages/Home/Home.module.css";
+import FeedInfoPage from "../OrderFeed/FeedInfo/FeedInfoPage";
+import ProfileOrders from "../../pages/Profile/ProfileOrders";
+
 
 // #endregion
 
@@ -59,6 +63,10 @@ function App(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path='/ingredients/:id' element={<Ingredient/>}/>
         <Route path="/profile" element={<ProtectedRoute element={<Profile />} needAuth={true} />} />
+        <Route path="/profile/orders" element={<ProtectedRoute element={<ProfileOrders />} needAuth={true} />} />
+        <Route path="/profile/orders/:id" element={<ProtectedRoute element={<FeedInfoPage />} needAuth={true} />} />
+        <Route path="/feed" element={<OrdersFeed />} />
+        <Route path="/feed/:id" element={<FeedInfoPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

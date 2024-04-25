@@ -61,7 +61,6 @@ const IngredientDetails = (): JSX.Element  => {
             </div>
           </div>
         </div>
-        // </Modal>
       );
     }
     else
