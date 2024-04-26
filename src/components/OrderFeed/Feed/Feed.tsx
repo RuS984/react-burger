@@ -37,8 +37,6 @@ const Feed: FC = () => {
     }, [location.pathname]);
     
 
-
-
     useEffect(() => {
         if (location.pathname.startsWith('/profile')) {
             dispatch(getIngredients());
@@ -46,13 +44,10 @@ const Feed: FC = () => {
                 dispatch(WSStartUser(token));
 }
         } 
-    
         return () => {
             dispatch(WSCloseUser());
         };
     }, [location.pathname]);
-
-    
 
     const ingredientsInfo = (id: string[]): TBurgerIngredientsProps[] => {
         const selectedIngredients = ingredientsList.filter(item => id.includes(item._id));
@@ -90,7 +85,7 @@ const Feed: FC = () => {
                 <Link
                     className={`${styles.dates}`}
                     to={`${item._id}`}
-                    state={{ backgroundLocation: location }}
+                    state={{ previousLocation: location }}
                 >
                     <div>
                         <div className={styles.info}>#{item.number}</div>
@@ -140,7 +135,6 @@ const Feed: FC = () => {
                     userOrders.slice().reverse().map(ordersSplit)
                 )}
             </section>
-           
         </section>
     );
 }

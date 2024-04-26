@@ -78,6 +78,18 @@ function App(): JSX.Element {
                   title={"Детали ингридиента"}>
                 <IngredientDetails/>
             </Modal>}/>
+            <Route path='/feed/:id' element={<Modal handleClickClose={() => {
+                navigate(`/feed`); 
+              }} 
+                  title={"Детали заказа"}>
+                <FeedInfoPage/>
+            </Modal>}/>
+            <Route path='/profile/orders/:id' element={<Modal handleClickClose={() => {
+                navigate(`/profile/orders`); 
+              }} 
+                  title={"Детали заказа"}>
+                <FeedInfoPage/>
+            </Modal>}/>
           </Routes>
         )}
 
