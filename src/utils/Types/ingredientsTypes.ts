@@ -21,7 +21,7 @@ export type TBurgerIngredientsProps = {
     image_large: string,
     __v: number
     idx?:number
-    id?:number
+    id?:string
 };
 
 export type TIngredientsRequestAction = {

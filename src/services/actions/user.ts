@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../utils/Types/reduxThunkTypes";
 import { fetchWithRefresh, apiUrl } from "../../utils/appApi";
 
@@ -33,6 +34,8 @@ export const IS_SUCCESS_REQUEST:'IS_SUCCESS_REQUEST' = 'IS_SUCCESS_REQUEST';
 export const IS_SUCCESS_SUCCESS:'IS_SUCCESS_SUCCESS' = 'IS_SUCCESS_SUCCESS';
 export const IS_SUCCESS_FAILED:'IS_SUCCESS_FAILED ' = 'IS_SUCCESS_FAILED ';
 
+
+
 export const getUser = () => {
   return async function(dispatch: AppDispatch) {
     dispatch({
@@ -40,7 +43,7 @@ export const getUser = () => {
     });
       const responce = await fetchWithRefresh(`${apiUrl}/auth/user`, {
         method: 'GET',
-        headers: { authorization: localStorage.getItem("accessToken") }          
+        headers: { authorization: localStorage.getItem("accessToken") as string }          
       })
       .then((rsp) =>
         {
@@ -75,8 +78,8 @@ export const registerUser = (email: string, password: string, name: string) => {
         body: JSON.stringify({email, password, name}),
       })
 
-      localStorage.setItem("accessToken", response.accessToken);
-      localStorage.setItem("refreshToken", response.refreshToken);
+      localStorage.setItem("accessToken", response.accessToken as string);
+      localStorage.setItem("refreshToken", response.refreshToken as string);
 
       dispatch(
         {
@@ -90,7 +93,10 @@ export const registerUser = (email: string, password: string, name: string) => {
           type: REGISTER_USER_SUCCESS,
           payload: {}
         }
-      );     
+      );  
+      
+      const navigate = useNavigate();
+      navigate("/", { replace: true });   
     }
     catch
     {
@@ -120,8 +126,8 @@ export const signInUser = (email: string, password: string) => {
         body: JSON.stringify({email, password}),
       })
 
-      localStorage.setItem("accessToken", response.accessToken);
-      localStorage.setItem("refreshToken", response.refreshToken);
+      localStorage.setItem("accessToken", response.accessToken as string);
+      localStorage.setItem("refreshToken", response.refreshToken as string);
 
       dispatch(
         {
@@ -199,12 +205,12 @@ export const updateUser = (name: string, email: string, password: string) => {
     {
       const response = await fetchWithRefresh(`${apiUrl}/auth/user`, {
         method: 'PATCH',
-        headers: {'Content-Type': 'application/json;charset=utf-8', authorization: localStorage.getItem("accessToken"),},
+        headers: {'Content-Type': 'application/json;charset=utf-8', authorization: localStorage.getItem("accessToken")  as string,},
         body: JSON.stringify({ name, email, password, }),
       });  
 
-      localStorage.setItem("accessToken", response.accessToken);
-      localStorage.setItem("refreshToken", response.refreshToken);
+      localStorage.setItem("accessToken", response.accessToken as string);
+      localStorage.setItem("refreshToken", response.refreshToken as string);
 
       dispatch(
         {

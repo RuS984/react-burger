@@ -23,7 +23,6 @@ import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
 
 function BurgerIngredients() {
   const [isOpen, setisOpen] = React.useState(false);
-  const [item, setItem] = React.useState<TBurgerIngredientsProps | object>({});
 
   const [current, setCurrent] = React.useState("bunRef");
   
@@ -53,7 +52,6 @@ function BurgerIngredients() {
 
   // #region Handlers
   const handleOpenModal = (ingredient: TBurgerIngredientsProps) => {
-    setItem(ingredient);
     setisOpen(true);
   };
 
@@ -64,23 +62,21 @@ function BurgerIngredients() {
   const scrollHandle = (e: React.SyntheticEvent <HTMLElement>) => {
     let scrollTop = (e.currentTarget).scrollTop; 
     if (
-      //@ts-ignore
-      scrollTop > bunRef.current?.getBoundingClientRect().bottom &&
-      //@ts-ignore
-      scrollTop < sauceRef.current?.getBoundingClientRect().bottom
+      scrollTop > (bunRef.current?.getBoundingClientRect()?.bottom as number)
+      &&
+      scrollTop < (sauceRef.current?.getBoundingClientRect().bottom as number)
     ) {
       setCurrent("bunRef");
     }
     if (
-      //@ts-ignore
-      scrollTop > sauceRef.current?.getBoundingClientRect().bottom &&
-      //@ts-ignore
-      scrollTop < mainRef.current?.getBoundingClientRect().bottom
+      scrollTop > (sauceRef.current?.getBoundingClientRect().bottom  as number)
+      &&
+      scrollTop < (mainRef.current?.getBoundingClientRect().bottom  as number)
     ) {
       setCurrent("sauceRef");
     }
-    //@ts-ignore
-    if (scrollTop > mainRef.current?.getBoundingClientRect().bottom) {
+    if (scrollTop > (mainRef.current?.getBoundingClientRect().bottom   as number)  
+    ){
       setCurrent("mainRef");
     }
   };
@@ -88,8 +84,7 @@ function BurgerIngredients() {
   const setActiveTab = (tab:string) => {
     setCurrent(tab);
 
-    //@ts-ignore
-    document.querySelector(`[data-title="${tab}"]`).scrollIntoView({
+    document.querySelector(`[data-title="${tab}"]`)?.scrollIntoView({
       behavior: "smooth",
       inline: "start",
     });

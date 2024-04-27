@@ -1,3 +1,4 @@
+import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
 import { AppDispatch } from "../../utils/Types/reduxThunkTypes";
 import { getIngredientsRequest } from "../../utils/appApi";
 
@@ -14,7 +15,7 @@ export const getIngredients = () => {
       .then((data) =>
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
-          payload: data,
+          payload: data.data as TBurgerIngredientsProps[],
         })
       )
       .catch((e) => {

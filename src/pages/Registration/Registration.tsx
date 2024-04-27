@@ -36,12 +36,7 @@ export default function Registration() {
       return;
     }
     
-    //@ts-ignore
-    dispatch(registerUser(email, password, login)).then((success) => {
-      if (success) {
-        navigate("/", { replace: true });
-      }
-    });
+    dispatch(registerUser(email, password, login))
   };
 
   const isSubmitDisabled =

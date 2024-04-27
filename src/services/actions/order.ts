@@ -1,4 +1,6 @@
 import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
+import { TSubmitOrderParams } from "../../utils/Types/orderTypes";
+import { TOrdersFeedProps } from "../../utils/Types/ordersFeedTypes";
 import { AppDispatch } from "../../utils/Types/reduxThunkTypes";
 import { submitOrderRequest } from "../../utils/appApi";
 
@@ -11,7 +13,7 @@ export const submitOrder = (orderData: TBurgerIngredientsProps[] ) => (dispatch:
     type: SUBMIT_ORDER_REQUEST,
   });
   submitOrderRequest(orderData)
-    .then((res) => {
+    .then((res : { name: string; order: {number: number;}}) => {
       dispatch({
         type: SUBMIT_ORDER_SUCCESS,
         payload: {name: res.name, order: res.order.number},

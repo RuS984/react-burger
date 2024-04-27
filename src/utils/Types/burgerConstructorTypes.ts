@@ -37,12 +37,12 @@ export type TDeleteIngredient = {
 
 export type TDragIngredientAction = {
     type: typeof DRAG_INGREDIENT_IN_CONSTRUCTOR;
-    payload: {ingredient:TBurgerIngredientsProps, itemId: any  };
+    payload: {ingredient:TBurgerIngredientsProps, itemId: string   };
   }
   
 export type TDragBunAction = {
     type: typeof DRAG_BUN_IN_CONSTRUCTOR;
-    payload: {ingredient:TBurgerIngredientsProps, itemId: any  };
+    payload: {ingredient:TBurgerIngredientsProps, itemId: string   };
   }
 
 export type TBurgerConstructorActions =
