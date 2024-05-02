@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/Types/reduxThunkTypes";
 import {
   Counter,
   CurrencyIcon,
@@ -13,27 +13,18 @@ import { useLocation, useNavigate } from "react-router";
 
 // #region Styles
 import style from "./BurgerIngredients.module.css";
+
 // #endregion
 
 // #region Import App components
-import TBurgerIngredientsProps from "./TBurgerIngredientsProps";
+import { TBurgerIngredientProps } from "../../utils/Types/burgerConstructorTypes";
 
 // #endregion
 
-type TBurgerIngredientProps = {
-  ingredient: TBurgerIngredientsProps;
-  handleClick: () => void;
-};
-
-type TBurgerIngredientParams = {
-  ingredientsWithoutBuns: TBurgerIngredientsProps[];
-  buns: TBurgerIngredientsProps;
-};
 
 function BurgerIngredient({ ingredient, handleClick }:TBurgerIngredientProps): JSX.Element {
   // #region Redux logic
-  const { ingredientsWithoutBuns, buns }: TBurgerIngredientParams = useSelector(
-    //@ts-ignore
+  const { ingredientsWithoutBuns, buns } = useSelector(
     (store) => store.constructorIngredients,
   );
   // #endregion
@@ -54,7 +45,7 @@ function BurgerIngredient({ ingredient, handleClick }:TBurgerIngredientProps): J
     return {
       ingredientQty:
         ingredient.type === "bun"
-          ? buns._id === ingredient._id
+          ? (buns != null && buns._id === ingredient._id) 
             ? 1
             : 0
           : ingredientsWithoutBuns.filter((item) => item._id === ingredient._id)

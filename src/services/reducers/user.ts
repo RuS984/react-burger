@@ -1,3 +1,4 @@
+import { TUser, TUserActions } from "../../utils/Types/userTypes";
 import {
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
@@ -13,18 +14,32 @@ import {
   SIGNOUT_USER_FAILED,
 } from "../actions/user";
 
-const initialState = {
-  user: null,
+
+
+export type TUserParams = {
+  user?: TUser,
+  isChecked: boolean,
+  success: boolean,
+  isProceed: boolean,
+  isError: boolean,
+  error: string
+};
+
+const initialState: TUserParams = {
+  user: undefined,
   isChecked: false,
   success: false,
   isProceed: false,
+  isError: false,
+  error: ""
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action:TUserActions) => {
   switch (action.type) {
     case SET_USER_REQUEST: {
       console.log("req", state);
       return {
+        ...state,
         isProceed: true,
       };
     }
@@ -33,7 +48,8 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         isProceed: false,
-        user: action.user,
+        isError: false,
+        user: action.payload.user,
       };
     }
     case SET_USER_FAILED: {
@@ -42,7 +58,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isProceed: false,
         isError: true,
-        error: action.error,
+        error: action.payload.error,
       };
     }
 
@@ -66,7 +82,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isProceed: false,
         isError: true,
-        error: action.error,
+        error: action.payload.error,
       };
     }
 
@@ -90,7 +106,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isProceed: false,
         isError: true,
-        error: action.error,
+        error: action.payload.error,
       };
     }
 
@@ -105,7 +121,7 @@ export const userReducer = (state = initialState, action) => {
       console.log("success", state);
       return {
         ...state,
-        user: null,
+        user: undefined,
         isProceed: false,
       };
     }
@@ -115,7 +131,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isProceed: false,
         isError: true,
-        error: action.error,
+        error: action.payload.error,
       };
     }
 

@@ -9,9 +9,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useState } from "react";
 import { signOutUser, updateUser } from "../../services/actions/user";
+import { OrderFeed } from "../../components/OrderFeed/OrderFeed";
+import Feed from "../../components/OrderFeed/Feed/Feed";
 
 
-export default function Profile() {
+export default function ProfileOrders() {
   const user = useSelector((store) => store.user.user);
   const [login, setLogin] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
@@ -58,53 +60,7 @@ export default function Profile() {
         <p className={`${styles.text}`}>В этом разделе вы можете</p>
         <p className={`${styles.text}`}>изменить свои персональные данные</p>
       </nav>
-      <form className={styles.input} onSubmit={updateUserSubmit}>
-        <div className={`${styles.item} mb-6`}>
-          <Input
-            value={login}
-            name="name"
-            type={"text"}
-            placeholder={"Имя"}
-            icon={"EditIcon"}
-            onChange={handleSetLogin}
-          />
-        </div>
-        <div className={`${styles.item} mb-6`}>
-          <EmailInput
-            value={email}
-            name="email"
-            placeholder={"Логин"}
-            onChange={handleSetEmail}
-          />
-        </div>
-        <div className={`${styles.item} `}>
-          <PasswordInput
-            value={password}
-            name="password"
-            onChange={handleSetPassword}
-          />
-        </div>
-        <div className={styles.button}>
-          {!isCredChanged ? null : (
-            <>
-              <Button
-                type="primary"
-                htmlType="submit"
-                extraClass="mt-10"
-              >
-                Сохранить
-              </Button>
-              <Button
-                type="primary"
-                htmlType="reset"
-                onClick={() => resetChanges()}
-              >
-                Отменить
-              </Button>
-            </>
-          )}
-        </div>
-      </form>
+      <Feed />
     </div>
   );
 }

@@ -11,7 +11,7 @@ import Modal from "../Modal/Modal";
 // #endregion
 
 // #region Import Redux elements
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/Types/reduxThunkTypes";
 import { getIngredients } from "../../services/actions/ingredients";
 
 // #endregion
@@ -26,11 +26,16 @@ import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import Profile from "../../pages/Profile/Profile";
 import Ingredient from "../../pages/Ingredient/Ingredient";
 import ProtectedRoute from "../../pages/ProtectedRoute/ProtectedRoute";
+import OrdersFeed from "../../pages/OrdersFeed/OrdersFeed";
 
 // #endregion
 
 // #region Styles
 import stylesHome from "../../pages/Home/Home.module.css";
+import FeedInfoPage from "../OrderFeed/FeedInfo/FeedInfoPage";
+import ProfileOrders from "../../pages/Profile/ProfileOrders";
+
+
 // #endregion
 
 function App(): JSX.Element {
@@ -42,7 +47,6 @@ function App(): JSX.Element {
   const background = location.state?.previousLocation;
 
   useEffect(() => {
-    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
   // #endregion
@@ -59,6 +63,10 @@ function App(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path='/ingredients/:id' element={<Ingredient/>}/>
         <Route path="/profile" element={<ProtectedRoute element={<Profile />} needAuth={true} />} />
+        <Route path="/profile/orders" element={<ProtectedRoute element={<ProfileOrders />} needAuth={true} />} />
+        <Route path="/profile/orders/:id" element={<ProtectedRoute element={<FeedInfoPage />} needAuth={true} />} />
+        <Route path="/feed" element={<OrdersFeed />} />
+        <Route path="/feed/:id" element={<FeedInfoPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
@@ -69,6 +77,18 @@ function App(): JSX.Element {
               }} 
                   title={"Детали ингридиента"}>
                 <IngredientDetails/>
+            </Modal>}/>
+            <Route path='/feed/:id' element={<Modal handleClickClose={() => {
+                navigate(`/feed`); 
+              }} 
+                  title={"Детали заказа"}>
+                <FeedInfoPage/>
+            </Modal>}/>
+            <Route path='/profile/orders/:id' element={<Modal handleClickClose={() => {
+                navigate(`/profile/orders`); 
+              }} 
+                  title={"Детали заказа"}>
+                <FeedInfoPage/>
             </Modal>}/>
           </Routes>
         )}

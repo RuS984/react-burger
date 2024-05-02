@@ -1,12 +1,9 @@
-import { useSelector } from "react-redux";
-import TBurgerIngredientsProps from "../components/BurgerIngredients/TBurgerIngredientsProps";
+import { Params } from "react-router-dom";
+import { TBurgerIngredientsProps } from "./Types/ingredientsTypes";
+import { useSelector } from "./Types/reduxThunkTypes";
 
-type TIngredientIdProps = {
-  id: string;
-};
 
-export const GetIngredientById = ({ id }: TIngredientIdProps): TBurgerIngredientsProps => {
-  //@ts-ignore
+export const GetIngredientById = ( id : string | undefined): TBurgerIngredientsProps | undefined => {
   const burgerIngredients = useSelector((state) => state.ingredients.data);
-  return burgerIngredients.find((item: TBurgerIngredientsProps) => item._id === id);
+  return burgerIngredients.find((item) => item._id === id);
 };

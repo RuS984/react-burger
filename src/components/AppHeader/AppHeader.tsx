@@ -25,11 +25,13 @@ class AppHeader extends React.Component {
             <BurgerIcon type="primary" />
             <p className="ml-1 text_type_main-default"> Конструктор</p>
           </NavLink>
-
-          <a href="#" className={`${style.btn} ${style.linkbtn} p-5`}>
+          <NavLink
+            to="/feed"
+            className={`${style.btn} ${style.activebtn} p-5 mr-2 `}
+          >
             <ListIcon type="secondary" />
             <p className="ml-1 text_type_main-default">Лента заказов</p>
-          </a>
+          </NavLink>
         </span>
         <span className={`${style.flex}`}>
           <Logo />

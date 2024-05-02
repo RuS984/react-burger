@@ -1,17 +1,18 @@
+import { TSubmitOrderActions, TSubmitOrderParams } from "../../utils/Types/orderTypes";
 import {
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
   SUBMIT_ORDER_FAILED,
 } from "../actions/order";
 
-const initialState = {
+const initialState: TSubmitOrderParams = {
   orderNumber: 0,
   isProceed: false,
   isError: false,
   error: "",
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TSubmitOrderActions) => {
   switch (action.type) {
     case SUBMIT_ORDER_REQUEST: {
       console.log("req", state);
@@ -25,7 +26,7 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         isProceed: false,
-        orderNumber: action.order,
+        orderNumber: action.payload.order,
       };
     }
     case SUBMIT_ORDER_FAILED: {
@@ -34,7 +35,7 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         isProceed: false,
         isError: true,
-        error: action.error,
+        error: action.payload.error,
       };
     }
     default:

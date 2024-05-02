@@ -12,7 +12,7 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 // #endregion
 
 // #region Import Redux elements
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "../../utils/Types/reduxThunkTypes";
 import { getIngredients } from "../../services/actions/ingredients";
 // #endregion
 
@@ -22,9 +22,7 @@ import style from "./Home.module.css";
 
 function Home() {
   // #region Redux logic
-  //@ts-ignore
   const ingredients = useSelector((store) => store.ingredients.data);
-  //@ts-ignore
   const hasError = useSelector((store) => store.ingredients.hasError);
 
   // #endregion

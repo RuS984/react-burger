@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "../../utils/Types/reduxThunkTypes";
 import {
   EmailInput,
   Button,
@@ -8,6 +8,7 @@ import {
 import { forgotPassword } from "../../services/actions/user";
 
 import styles from "./ForgotPassword.module.css";
+
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -25,7 +26,6 @@ export default function ForgotPassword() {
       return;
     }
     
-    //@ts-ignore
     dispatch(forgotPassword(email));
 
     navigate("/resetpassword", { state: { previousLocationPathname: location.pathname }});

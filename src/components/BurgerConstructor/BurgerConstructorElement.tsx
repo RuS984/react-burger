@@ -1,6 +1,6 @@
 ﻿// #region Import Modules
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../utils/Types/reduxThunkTypes";
 import { useDrag, useDrop } from "react-dnd";
 import {
   ConstructorElement,
@@ -17,18 +17,11 @@ import { dragSortIngredient } from "../../services/actions/burgerConstructor";
 import style from "./BurgerConstructor.module.css";
 // #endregion
 
-import TBurgerIngredientsProps from "../BurgerIngredients/TBurgerIngredientsProps";
+import { TBurgerConstructorElementProps } from "../../utils/Types/burgerConstructorTypes";
+import { TBurgerIngredientsProps } from "../../utils/Types/ingredientsTypes";
 
-type TBurgerConstructorElementProps = {
-  type: "top" | "bottom" | undefined,
-  isLocked: boolean,
-  text: string,
-  price: number,
-  thumbnail: string,
-  idx: number
-  ingredient: TBurgerIngredientsProps,
-  handleClose: () => void;
-};
+
+
 
 function BurgerConstructorElement({
   type,
@@ -42,9 +35,7 @@ function BurgerConstructorElement({
 }:TBurgerConstructorElementProps) {
   // #region Redux logic
   const dispatch = useDispatch();
-  //@ts-ignore
   const { ingredientsWithoutBuns } = useSelector(
-    //@ts-ignore
     (store) => store.constructorIngredients,
   );
   // #endregion
@@ -84,7 +75,7 @@ function BurgerConstructorElement({
         return;
       }
 
-      const sortedArray = arrayMoveImmutable(
+      const sortedArray: TBurgerIngredientsProps[] = arrayMoveImmutable(
         ingredientsWithoutBuns,
         dragIndex,
         idx,

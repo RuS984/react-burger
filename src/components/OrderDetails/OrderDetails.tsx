@@ -1,25 +1,16 @@
 // #region Import Modules
 import React from "react";
-
-import { useSelector } from "react-redux";
-
 // #endregion
 // #region Styles
 import style from "./OrderDetails.module.css";
-
 // #endregion
 
-type TOrderParams = {
-  orderNumber: number;
-  isProceed: boolean;
-  isError: boolean;
-  error: string;
-};
+import { TOrderParams } from "../../utils/Types/orderTypes";
+import { useSelector } from "../../utils/Types/reduxThunkTypes";
 
 const OrderDetails = (): JSX.Element => {
   
   const { orderNumber, isProceed, isError, error }:TOrderParams = useSelector(
-    //@ts-ignore
     (store) => store.order,
   );
 

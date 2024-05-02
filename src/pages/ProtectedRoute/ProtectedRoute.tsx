@@ -1,23 +1,16 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUser } from "../../services/actions/user";
-import { useDispatch, useSelector } from "react-redux";
-
-
-type TProtectedRouteProps = {
-  element: JSX.Element;
-  needAuth: boolean
-};
+import { useDispatch, useSelector } from "../../utils/Types/reduxThunkTypes";
+import { TProtectedRouteProps } from "../../utils/Types/pageTypes";
 
 export default function ProtectedRoute({ element, needAuth }:TProtectedRouteProps) {
   const dispatch = useDispatch();
-  //@ts-ignore
   const user = useSelector((state) => state.user);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const location = useLocation();
 
   const init = async () => {
-    //@ts-ignore
     await dispatch(getUser());
     setIsUserLoaded(true);
   };
