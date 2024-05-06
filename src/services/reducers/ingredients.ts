@@ -5,7 +5,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
 } from "../actions/ingredients";
 
-const initialState: TIngredientsProps = {
+export const initialState: TIngredientsProps = {
   isLoading: false,
   hasError: false,
   data: [],

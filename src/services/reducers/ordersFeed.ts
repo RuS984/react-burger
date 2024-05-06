@@ -8,7 +8,7 @@ export type TWsOrderFeedState = {
     total: number
     totalToday: number}
 
-const initialState: TWsOrderFeedState = {
+export const initialState: TWsOrderFeedState = {
     WebSocketConnected: false,
     orders: [],
     total: 0,
@@ -24,20 +24,20 @@ export const WsOrdersFeedReducer = (state = initialState, action: TWSOrdersFeedA
         case WS_CONNECTION_SUCCESS:
             return {
                 ...state,
-                WebSocketConnect: true
+                WebSocketConnected: true
             };
 
         case WS_CONNECTION_ERROR:
             return {
                 ...state,
                 error: action.payload,
-                WebSocketConnect: false
+                WebSocketConnected: false
             };
 
         case WS_CONNECTION_CLOSED:
             return {
                 ...state,
-                WebSocketConnect: false,
+                WebSocketConnected: false,
                 orders: [],
                 total: 0,
                 totalToday: 0,
