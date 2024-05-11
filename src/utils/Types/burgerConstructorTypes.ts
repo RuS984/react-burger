@@ -17,6 +17,7 @@ export type TBurgerConstructorElementProps = {
 
 export type TBurgerIngredientProps = {
   ingredient: TBurgerIngredientsProps;
+  dataTestid: string;
   handleClick: () => void;
 };
   

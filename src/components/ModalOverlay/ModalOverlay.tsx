@@ -12,6 +12,7 @@ const ModalOverlay = ({ handleCloseClick }: TModalOverlayProps): JSX.Element => 
   return (
     <div
       className={`${style.modaloverlay}`}
+      data-testid="modalOverlay"
       onClick={() => handleCloseClick()}
     ></div>
   );

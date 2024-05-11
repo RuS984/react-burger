@@ -38,7 +38,7 @@ const Modal = ({ title, children, handleClickClose }: TModalProps): JSX.Element 
       <ModalOverlay handleCloseClick={handleClickClose} />
       <div className={`${style.modal} pt-10 pr-10 pb-15 pl-10`}>
         <div className={`${style.wrapper} m-10`}>
-          <p className={`${style.title} text text_type_main-large`}>{title}</p>
+          <p className={`${style.title} text text_type_main-large` } data-testid="modal">{title}</p>
           <button
             className={`${style.closeButton}`}
             type="button"

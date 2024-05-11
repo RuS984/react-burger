@@ -65,7 +65,7 @@ function BurgerConstructorElement({
         return;
       }
 
-      let ingredient = item.ingredient as TBurgerIngredientsProps;;
+      let ingredient = item.ingredient as TBurgerIngredientsProps;
       const dragId = ingredient.id;
       const dragIndex = ingredientsWithoutBuns.findIndex(
         (i:TBurgerIngredientsProps) => i.id === dragId,
@@ -89,7 +89,7 @@ function BurgerConstructorElement({
   const dragDropRef = dropIngredient(dragSortRef(ref)) as any;
 
   return (
-    <div className="pt-4 pb-4" ref={dragDropRef}>
+    <div className="pt-4 pb-4" ref={dragDropRef} data-testid="ingredientDropTarget">
       <span className={`${style.flexcentered}`}>
         <div className="mr-6">
           <DragIcon type="primary" />

@@ -22,7 +22,7 @@ import { TBurgerIngredientProps } from "../../utils/Types/burgerConstructorTypes
 // #endregion
 
 
-function BurgerIngredient({ ingredient, handleClick }:TBurgerIngredientProps): JSX.Element {
+function BurgerIngredient({ ingredient, dataTestid, handleClick }:TBurgerIngredientProps): JSX.Element {
   // #region Redux logic
   const { ingredientsWithoutBuns, buns } = useSelector(
     (store) => store.constructorIngredients,
@@ -46,7 +46,7 @@ function BurgerIngredient({ ingredient, handleClick }:TBurgerIngredientProps): J
       ingredientQty:
         ingredient.type === "bun"
           ? (buns != null && buns._id === ingredient._id) 
-            ? 1
+            ? 2
             : 0
           : ingredientsWithoutBuns.filter((item) => item._id === ingredient._id)
               .length,
@@ -63,6 +63,7 @@ function BurgerIngredient({ ingredient, handleClick }:TBurgerIngredientProps): J
   return (
     <>
     <div
+      data-testid={dataTestid}
       className={
         isDrag
           ? `${style.ingredientCard} mr-6 mb-8 ${style.dragging}`

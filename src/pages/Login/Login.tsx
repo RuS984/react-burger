@@ -42,7 +42,7 @@ export default function Login() {
     email.trim().length === 0 || password.trim().length === 0;
 
   return (
-    <div className={`${styles.main} mt-30`}>
+    <div className={`${styles.main} mt-30`} data-testid="titleLoginForm">
       <h2 className={styles.header}>Вход</h2>
       <form className={styles.inputs} onSubmit={handleSubmitClick}>
         <EmailInput
