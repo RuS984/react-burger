@@ -4,6 +4,7 @@ import {
   bunDropTarget,
   ingredientDropTarget,
   souseCategory,
+  mainCategory
 } from "./const";
 
 describe("Test DnD", () => {
@@ -81,7 +82,7 @@ describe("Test DnD", () => {
     cy.get("@souseDrag").trigger("dragstart");
     cy.get("@ingredientDropTarget").trigger("drop");
 
-    cy.get('[data-testid="Начинки"]').first().as("mainDrag");
+    cy.get(mainCategory).first().as("mainDrag");
     cy.get("@mainDrag").trigger("dragstart");
     cy.get("@ingredientDropTarget").trigger("drop");
 

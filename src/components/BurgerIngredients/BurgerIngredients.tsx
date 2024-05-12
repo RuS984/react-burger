@@ -163,7 +163,7 @@ function BurgerIngredients() {
             <BurgerIngredient
               key={data._id}
               ingredient={data}
-              dataTestid="sauces"
+              dataTestid="main"
               handleClick={() => handleOpenModal(data)}
             />
           ))}
