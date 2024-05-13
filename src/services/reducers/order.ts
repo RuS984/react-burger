@@ -5,7 +5,7 @@ import {
   SUBMIT_ORDER_FAILED,
 } from "../actions/order";
 
-const initialState: TSubmitOrderParams = {
+export const initialState: TSubmitOrderParams = {
   orderNumber: 0,
   isProceed: false,
   isError: false,

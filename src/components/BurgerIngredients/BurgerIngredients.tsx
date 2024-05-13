@@ -93,13 +93,14 @@ function BurgerIngredients() {
 
   return (
     <section className={`${style.flexcolumn} mr-10`}>
-      <div className={`${style.ingredienttabs}`}>
+
+      <div className={`${style.ingredienttabs}`} data-testid="titleBurgerIngredients">
         <Tab
           value="bunRef"
           active={current === "bunRef"}
           onClick={setActiveTab}
         >
-          Булки{" "}
+          Булки
         </Tab>
         <Tab
           value="sauceRef"
@@ -132,6 +133,7 @@ function BurgerIngredients() {
             <BurgerIngredient
               key={data._id}
               ingredient={data}
+              dataTestid="buns"
               handleClick={() => handleOpenModal(data)}
             />
           ))}
@@ -146,6 +148,7 @@ function BurgerIngredients() {
             <BurgerIngredient
               key={data._id}
               ingredient={data}
+              dataTestid="sauces"
               handleClick={() => handleOpenModal(data)}
             />
           ))}
@@ -160,6 +163,7 @@ function BurgerIngredients() {
             <BurgerIngredient
               key={data._id}
               ingredient={data}
+              dataTestid="main"
               handleClick={() => handleOpenModal(data)}
             />
           ))}

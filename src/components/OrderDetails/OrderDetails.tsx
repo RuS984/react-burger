@@ -17,7 +17,7 @@ const OrderDetails = (): JSX.Element => {
   return (
     <div className={`${style.orderDetails}`}>
       {!isProceed && !isError ? (
-        <span className={`${style.orderNumber} text text_type_digits-large`}>
+        <span className={`${style.orderNumber} text text_type_digits-large`} data-testid="orderNumber">
           {orderNumber}
         </span>
       ) : (

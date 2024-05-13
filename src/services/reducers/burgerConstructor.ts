@@ -12,7 +12,7 @@ type TBurgerConstructorParams = {
   buns: TBurgerIngredientsProps | null,
 };
 
-const initialState:TBurgerConstructorParams = {
+export const initialState:TBurgerConstructorParams = {
   ingredientsWithoutBuns: [],
   buns: null,
 };

@@ -1,11 +1,11 @@
 {
   "name": "react-burger-typescript",
   "version": "0.1.0",
+  "homepage": "https://rus984.github.io/react-burger/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.80",
@@ -14,6 +14,7 @@
     "@types/uuid": "^9.0.8",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
     "array-move": "^4.0.0",
+    "gh-pages": "^6.1.1",
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
@@ -33,7 +34,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "npx cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "clean deploy": "npx gh-pages-clean"
   },
   "eslintConfig": {
     "extends": [
@@ -52,5 +57,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^15.0.6",
+    "cypress": "^13.8.1",
+    "fetch-mock": "^9.11.0",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.3.1",
+    "redux-mock-store": "^1.5.4"
   }
 }

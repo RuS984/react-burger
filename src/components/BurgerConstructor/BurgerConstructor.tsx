@@ -103,8 +103,8 @@ function BurgerConstructor() {
   // #endregion
 
   return (
-    <div className={`${style.flexcolumn} pt-25`} ref={dragDropRef}>
-      <div className="ml-8 pl-6">
+    <div className={`${style.flexcolumn} pt-25`} ref={dragDropRef} >
+      <div className="ml-8 pl-6" data-testid="bunDropTarget">
         {(buns === null || buns.price === undefined) ? (
           <p
             className={`${style.flexjustifycentered} ml-1 text_type_main-default`}
@@ -126,6 +126,7 @@ function BurgerConstructor() {
         {!ingredientsWithoutBuns.length ? (
           <p
             className={`${style.flexjustifycentered} ml-10 text_type_main-default`}
+            data-testid="ingredientDropTarget"
           >
             {" "}
             Добавьте ингридиент
@@ -150,6 +151,7 @@ function BurgerConstructor() {
         {(buns === null || buns.price === undefined) ? (
           <p
             className={`${style.flexjustifycentered} ml-1 text_type_main-default`}
+            data-testid="bunDropTarget"
           >
             {" "}
             Добавьте булочку

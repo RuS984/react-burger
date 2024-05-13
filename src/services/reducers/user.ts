@@ -25,7 +25,7 @@ export type TUserParams = {
   error: string
 };
 
-const initialState: TUserParams = {
+export const initialState: TUserParams = {
   user: undefined,
   isChecked: false,
   success: false,
